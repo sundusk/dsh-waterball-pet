@@ -1,0 +1,185 @@
+/**
+ * dsh-waterball host half — tracks agent activity and serves the current mood
+ * over a same-origin JSON route, plus registers the `waterball` settings
+ * namespace (`enabled` master switch + `size`). Install via
+ * `dsh plugin --profile web add link:<repo>/packages/dsh-waterball`.
+ * @module @linxin666/dsh-waterball
+ */
+
+import { Context } from '@deepseek-ai/cordis'
+import { installSettingsSection, settingsNamespace } from '@deepseek-ai/dsh-settings'
+import type {} from '@deepseek-ai/dsh-host-webserver'
+import type { WebRoute } from '@deepseek-ai/dsh-host-webserver'
+import type { Session } from '@deepseek-ai/dsh-session'
+import type { IncomingMessage, ServerResponse } from 'node:http'
+import z from 'schemastery'
+
+/** Stable cordis plugin name (matches cordis.patch.yml insert id). */
+export const name = 'waterball'
+
+/** Services required before the water ball can mount its surfaces. */
+export const inject = ['webServer']
+
+/** Settings namespace of the water ball capability (the browser half spells the same value). */
+export const WATERBALL_SETTINGS_NAMESPACE = 'waterball'
+
+/** Bounds of the size field, in px (the rendered SVG width). */
+export const WATERBALL_SIZE_MIN = 64
+export const WATERBALL_SIZE_MAX = 400
+
+/** Bounds of the right/bottom viewport insets, in px. */
+export const WATERBALL_INSET_MAX = 2000
+
+/** Default insets from the viewport bottom-right corner, in px. */
+export const WATERBALL_DEFAULT_INSET = 16
+
+/** The water ball's settings-namespace section. */
+export interface WaterballSettingsSection {
+  /** Master switch for the plugin (browser half + host routes). */
+  enabled?: boolean
+  /** Rendered SVG width in px. */
+  size?: number
+  /** Horizontal inset from the viewport right edge, px. */
+  right?: number
+  /** Vertical inset from the viewport bottom edge, px. */
+  bottom?: number
+}
+
+/** The mood the browser half renders (one of the CSS state/halo classes). */
+export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving'
+
+/** Settings section schema. */
+export const WATERBALL_SETTINGS_SCHEMA = z.object({
+  enabled: z.boolean().default(true),
+  size: z.number().step(1).min(WATERBALL_SIZE_MIN).max(WATERBALL_SIZE_MAX).default(120),
+  right: z.number().step(1).min(0).max(WATERBALL_INSET_MAX).default(WATERBALL_DEFAULT_INSET),
+  bottom: z.number().step(1).min(0).max(WATERBALL_INSET_MAX).default(WATERBALL_DEFAULT_INSET),
+})
+
+/** Write one JSON response. */
+function json(res: ServerResponse, status: number, body: unknown): void {
+  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8' })
+  res.end(JSON.stringify(body))
+}
+
+/**
+ * Register the water ball service surfaces and the `waterball` settings
+ * namespace. The status route is registered only while the plugin is enabled;
+ * toggling the setting off removes it until re-enabled.
+ * @param ctx - host root context.
+ */
+export function apply(ctx: Context): void {
+  let mood: WaterballMood = 'idle'
+  let holdUntil = 0
+  let current: () => WaterballSettingsSection = () => ({ enabled: true, size: 120 })
+
+  // A transient mood (done / failed / stopped) holds for `ms` before reverting
+  // to idle, so the colored reaction is visible instead of being swallowed by
+  // the immediately following `activity/status` idle phase.
+  const setTransient = (next: WaterballMood, ms: number): void => {
+    mood = next
+    holdUntil = Date.now() + ms
+    setTimeout(() => {
+      if (mood === next) mood = 'idle'
+    }, ms)
+  }
+
+  const section = (): { enabled: boolean; size: number; right: number; bottom: number } => {
+    const s = current()
+    const clampInset = (value: number): number =>
+      Math.round(Math.min(WATERBALL_INSET_MAX, Math.max(0, value)))
+    return {
+      enabled: s.enabled ?? true,
+      size: Math.round(Math.min(WATERBALL_SIZE_MAX, Math.max(WATERBALL_SIZE_MIN, s.size ?? 120))),
+      right: clampInset(s.right ?? WATERBALL_DEFAULT_INSET),
+      bottom: clampInset(s.bottom ?? WATERBALL_DEFAULT_INSET),
+    }
+  }
+
+  // Track the activity tracker's `activity/status` session events (phases:
+  // idle / waiting / thinking / tool / done) and the turn lifecycle, folding
+  // them into a mood. Transient moods (done / failed / stopped) hold briefly
+  // so their reaction color is visible before the next idle phase.
+  ctx.on('session/event', (_session: Session, event: { type: string; data?: unknown }) => {
+    if (!section().enabled) return
+    // The optional activity tracker publishes `activity/status`, but the
+    // standard DSH session stream is always present. Use both so the green
+    // thinking halo does not depend on an extra activity plugin being loaded.
+    if (event.type === 'turn/start' || event.type === 'step/start' || event.type === 'assistant/chunk') {
+      mood = 'waiting'
+      holdUntil = 0
+    } else if (event.type === 'tool/call') {
+      mood = 'jumping'
+      holdUntil = 0
+    } else if (event.type === 'tool/result') {
+      mood = 'waiting'
+      holdUntil = 0
+    } else if (event.type === 'activity/status') {
+      const payload = (event.data ?? {}) as { phase?: string }
+      if (payload.phase === undefined) return
+      switch (payload.phase) {
+        case 'waiting':
+        case 'thinking':
+          mood = 'waiting'
+          holdUntil = 0
+          break
+        case 'tool':
+          mood = 'jumping'
+          holdUntil = 0
+          break
+        case 'done':
+          setTransient('done', 2500)
+          break
+        case 'idle':
+          if (Date.now() < holdUntil) return
+          mood = 'idle'
+          break
+        default:
+          break
+      }
+    } else if (event.type === 'turn/end') {
+      const payload = (event.data ?? {}) as { reason?: { kind?: string } }
+      const kind = payload.reason?.kind
+      if (kind === 'error') setTransient('failed', 3000)
+      else if (kind === 'completed') setTransient('done', 2500)
+      else if (kind !== undefined) setTransient('stopped', 3000)
+    }
+  })
+
+  const statusRoute: WebRoute = {
+    kind: 'exact',
+    path: '/api/waterball/status',
+    handler: (req: IncomingMessage, res: ServerResponse): void => {
+      if (req.method !== 'GET') {
+        json(res, 405, { ok: false, error: 'method-not-allowed' })
+        return
+      }
+      const s = section()
+      json(res, 200, { ok: true, mood, enabled: s.enabled, size: s.size, right: s.right, bottom: s.bottom })
+    },
+  }
+
+  let disposeRoute: (() => void) | undefined
+  const syncRoutes = (): void => {
+    if (disposeRoute === undefined && section().enabled) {
+      disposeRoute = ctx.effect(() => ctx.webServer.register(statusRoute), 'waterball: status route')
+    } else if (disposeRoute !== undefined && !section().enabled) {
+      disposeRoute()
+      disposeRoute = undefined
+    }
+  }
+
+  installSettingsSection(ctx, settingsNamespace(WATERBALL_SETTINGS_NAMESPACE), WATERBALL_SETTINGS_SCHEMA, {
+    enabled: true,
+    size: 120,
+    right: WATERBALL_DEFAULT_INSET,
+    bottom: WATERBALL_DEFAULT_INSET,
+  }, {
+    setSource: (source) => { current = source },
+    onChange: () => {
+      if (!section().enabled) mood = 'idle'
+      syncRoutes()
+    },
+  })
+  syncRoutes()
+}

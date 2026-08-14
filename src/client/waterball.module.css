@@ -1,0 +1,159 @@
+.float {
+  position: fixed;
+  pointer-events: auto;
+  z-index: 2147483000;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+}
+
+.halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 170px;
+  height: 170px;
+  margin-left: -85px;
+  margin-top: -85px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ball {
+  position: relative;
+  z-index: 1;
+  cursor: grab;
+  transform-origin: 50% 85%;
+  will-change: transform;
+  line-height: 0;
+}
+
+.ball:active {
+  cursor: grabbing;
+}
+
+@keyframes dswb-bob {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.03); }
+}
+
+@keyframes dswb-tilt {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+
+@keyframes dswb-hop {
+  0%, 100% { transform: translateY(0); }
+  40%, 60% { transform: translateY(-13px); }
+}
+
+@keyframes dswb-rock {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+@keyframes dswb-droop {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(5px) rotate(-7deg); }
+}
+
+@keyframes dswb-cheer {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-10px) rotate(-4deg); }
+  50% { transform: translateY(-4px) rotate(4deg); }
+  75% { transform: translateY(-8px) rotate(-2deg); }
+}
+
+@keyframes dswb-stopped {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(3px) scale(0.97); }
+}
+
+.state-idle {
+  animation: dswb-bob 3.2s ease-in-out infinite;
+}
+
+.state-waiting {
+  animation: dswb-tilt 2.6s ease-in-out infinite;
+}
+
+.state-jumping {
+  animation: dswb-hop 0.9s ease-in-out infinite;
+}
+
+.state-waving {
+  animation: dswb-rock 0.9s ease-in-out infinite;
+}
+
+.state-failed {
+  animation: dswb-droop 4s ease-in-out infinite;
+}
+
+.state-done {
+  animation: dswb-cheer 1.2s ease-in-out infinite;
+}
+
+.state-stopped {
+  animation: dswb-stopped 3s ease-in-out infinite;
+}
+
+@keyframes dswb-blink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.08); }
+  97% { transform: scaleY(1); }
+}
+
+.eye {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: dswb-blink 4.5s infinite;
+}
+
+@keyframes dswb-halo-soft {
+  0%, 100% { opacity: 0.6; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes dswb-halo-busy {
+  0%, 100% { opacity: 0.65; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.14); }
+}
+
+.halo-idle {
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.8) 0%, rgba(96, 165, 250, 0.32) 45%, transparent 75%);
+  animation: dswb-halo-soft 3.2s ease-in-out infinite;
+}
+
+.halo-waiting {
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.85) 0%, rgba(52, 211, 153, 0.35) 45%, transparent 75%);
+  animation: dswb-halo-busy 1.2s ease-in-out infinite;
+}
+
+.halo-jumping {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.85) 0%, rgba(168, 85, 247, 0.35) 45%, transparent 75%);
+  animation: dswb-halo-busy 0.6s ease-in-out infinite;
+}
+
+.halo-failed {
+  background: radial-gradient(circle, rgba(248, 113, 113, 0.85) 0%, rgba(248, 113, 113, 0.35) 45%, transparent 75%);
+  animation: dswb-halo-busy 0.9s ease-in-out infinite;
+}
+
+.halo-done {
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.85) 0%, rgba(34, 211, 238, 0.35) 45%, transparent 75%);
+  animation: dswb-halo-busy 0.8s ease-in-out infinite;
+}
+
+.halo-stopped {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.28) 45%, transparent 75%);
+  animation: dswb-halo-busy 1.2s ease-in-out infinite;
+}
+
+.halo-waving {
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.85) 0%, rgba(251, 146, 60, 0.35) 45%, transparent 75%);
+  animation: dswb-halo-busy 0.8s ease-in-out infinite;
+}
