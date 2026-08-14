@@ -65,18 +65,6 @@ dsh plugin --profile web add link:<本仓库绝对路径>
 重启 `dsh web` 后生效。插件代码修改后运行 `pnpm build`，并将更新后的 `lib/`
 一并提交。
 
-### npm（可选）
-
-本仓库也符合 npm 包结构，但不要求发布 npm 才能使用。若要发布稳定版本：
-
-```sh
-pnpm install
-pnpm build
-pnpm publish --access public
-```
-
-发布前请先更新 `package.json` 的 `version`。
-
 ## 结构
 
 - `src/index.ts` — host 半区：监听标准 session 事件与可选的 `activity/status` 相位，
@@ -141,15 +129,3 @@ dsh plugin --profile web add link:<absolute-path-to-this-repository>
 ```
 
 Run `pnpm build` after changing the source and commit the updated `lib/` artifacts.
-
-### Optional npm publication
-
-npm publication is not required for use. To publish a stable version:
-
-```sh
-pnpm install
-pnpm build
-pnpm publish --access public
-```
-
-Update the `version` in `package.json` before publishing.
