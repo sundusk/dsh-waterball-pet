@@ -12,6 +12,8 @@ import { CardForm, booleanField, numberField, type CardActions, type CardShell, 
 export interface WaterballSettings {
   /** Master switch for the plugin. */
   enabled?: boolean
+  /** Hide the ball in the web UI only; status route stays live. */
+  hidden?: boolean
   /** Rendered SVG width in px. */
   size?: number
   /** Horizontal inset from the viewport right edge, px. */
@@ -24,6 +26,8 @@ export interface WaterballSettings {
 export interface WaterballSettingsCardState extends CardShell {
   /** Plugin master switch. */
   enabled: CardFieldState
+  /** Hide in web UI only. */
+  hidden: CardFieldState
   /** Rendered size. */
   size: CardFieldState
   /** Right inset. */
@@ -47,7 +51,7 @@ export class WaterballSettingsCardController {
 
   /** @param scope - the bound settings scope for the `waterball` namespace. */
   constructor(scope: SettingsScope<WaterballSettings>) {
-    this.form = new CardForm(scope, [booleanField('enabled'), numberField('size'), numberField('right'), numberField('bottom')])
+    this.form = new CardForm(scope, [booleanField('enabled'), booleanField('hidden'), numberField('size'), numberField('right'), numberField('bottom')])
     this.store = this.form.bind(() => this.projection())
   }
 
@@ -55,6 +59,7 @@ export class WaterballSettingsCardController {
     return {
       ...this.form.shell(),
       enabled: this.form.field('enabled'),
+      hidden: this.form.field('hidden'),
       size: this.form.field('size'),
       right: this.form.field('right'),
       bottom: this.form.field('bottom'),
@@ -111,6 +116,18 @@ export function WaterballSettingsCard(props: WaterballSettingsCardProps) {
         {...state.enabled}
         onEdit={(text) => { props.edit('enabled', text) }}
         onReset={() => { props.resetField('enabled') }}
+      />
+      <BooleanField
+        id="settings-waterball-hidden"
+        label={t('settings.hidden')}
+        hint={t('settings.hiddenHint')}
+        inheritLabel={t('settings.inherit')}
+        onLabel={t('settings.on')}
+        offLabel={t('settings.off')}
+        {...fieldProps}
+        {...state.hidden}
+        onEdit={(text) => { props.edit('hidden', text) }}
+        onReset={() => { props.resetField('hidden') }}
       />
       <ValueField
         id="settings-waterball-size"

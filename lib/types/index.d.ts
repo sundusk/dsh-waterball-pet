@@ -24,6 +24,8 @@ export declare const WATERBALL_DEFAULT_INSET = 16;
 export interface WaterballSettingsSection {
     /** Master switch for the plugin (browser half + host routes). */
     enabled?: boolean;
+    /** Hide the ball in the web UI only; the status route and mood tracking stay live. */
+    hidden?: boolean;
     /** Rendered SVG width in px. */
     size?: number;
     /** Horizontal inset from the viewport right edge, px. */
@@ -36,11 +38,13 @@ export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' |
 /** Settings section schema. */
 export declare const WATERBALL_SETTINGS_SCHEMA: z<Schemastery.ObjectS<{
     enabled: z<boolean, boolean>;
+    hidden: z<boolean, boolean>;
     size: z<number, number>;
     right: z<number, number>;
     bottom: z<number, number>;
 }>, Schemastery.ObjectT<{
     enabled: z<boolean, boolean>;
+    hidden: z<boolean, boolean>;
     size: z<number, number>;
     right: z<number, number>;
     bottom: z<number, number>;

@@ -9,6 +9,8 @@ import { type CardActions, type CardShell, type FieldState as CardFieldState } f
 export interface WaterballSettings {
     /** Master switch for the plugin. */
     enabled?: boolean;
+    /** Hide the ball in the web UI only; status route stays live. */
+    hidden?: boolean;
     /** Rendered SVG width in px. */
     size?: number;
     /** Horizontal inset from the viewport right edge, px. */
@@ -20,6 +22,8 @@ export interface WaterballSettings {
 export interface WaterballSettingsCardState extends CardShell {
     /** Plugin master switch. */
     enabled: CardFieldState;
+    /** Hide in web UI only. */
+    hidden: CardFieldState;
     /** Rendered size. */
     size: CardFieldState;
     /** Right inset. */

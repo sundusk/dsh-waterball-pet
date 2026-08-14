@@ -63,6 +63,13 @@ export function apply(ctx: ClientContext): void {
       ? snapshot.value?.enabled ?? true
       : snapshot.status === 'unavailable'
   }
+  // 「隐藏」只影响网页端是否渲染水球，不关停 host 的状态监听与 /api/waterball/status
+  const hidden = (): boolean => {
+    const snapshot = settingsScope.getSnapshot()
+    return snapshot.status === 'ready'
+      ? snapshot.value?.hidden ?? true
+      : false
+  }
   const persistPosition = (right: number, bottom: number): void => {
     void settingsScope.set('right', Math.round(right))
     void settingsScope.set('bottom', Math.round(bottom))
@@ -79,11 +86,12 @@ export function apply(ctx: ClientContext): void {
     inject: () => card.inject(),
   }, WaterballSettingsCard))
 
-  // The dock entry (and its poll loop) lives while the plugin is enabled;
-  // toggling the setting off hides the pet and stops polling.
+  // The dock entry (and its poll loop) lives while the plugin is enabled and
+  // not hidden; toggling `enabled` off or `hidden` on removes the ball from
+  // the web UI without touching the host-side status route.
   let disposeUi: (() => void) | undefined
   const syncUi = (): void => {
-    if (enabled() && disposeUi === undefined) {
+    if (enabled() && !hidden() && disposeUi === undefined) {
       disposeUi = ctx.slots.inject('shell.overlay', () => ctx.slots.register({
         name: 'shell.overlay',
         id: 'waterball',
@@ -91,7 +99,7 @@ export function apply(ctx: ClientContext): void {
         locale: NS,
         inject: () => ({ persistPosition }),
       }, WaterballDockEntry))
-    } else if (!enabled() && disposeUi !== undefined) {
+    } else if ((!enabled() || hidden()) && disposeUi !== undefined) {
       disposeUi()
       disposeUi = undefined
     }

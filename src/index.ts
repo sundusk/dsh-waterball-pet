@@ -37,6 +37,8 @@ export const WATERBALL_DEFAULT_INSET = 16
 export interface WaterballSettingsSection {
   /** Master switch for the plugin (browser half + host routes). */
   enabled?: boolean
+  /** Hide the ball in the web UI only; the status route and mood tracking stay live. */
+  hidden?: boolean
   /** Rendered SVG width in px. */
   size?: number
   /** Horizontal inset from the viewport right edge, px. */
@@ -51,6 +53,9 @@ export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' |
 /** Settings section schema. */
 export const WATERBALL_SETTINGS_SCHEMA = z.object({
   enabled: z.boolean().default(true),
+  // 发布版面向「只要桌面呼吸灯」的用户：初始默认隐藏网页球，
+  // 网页设置里可随时打开（hidden 不影响 /api/waterball/status）。
+  hidden: z.boolean().default(true),
   size: z.number().step(1).min(WATERBALL_SIZE_MIN).max(WATERBALL_SIZE_MAX).default(120),
   right: z.number().step(1).min(0).max(WATERBALL_INSET_MAX).default(WATERBALL_DEFAULT_INSET),
   bottom: z.number().step(1).min(0).max(WATERBALL_INSET_MAX).default(WATERBALL_DEFAULT_INSET),
@@ -84,12 +89,13 @@ export function apply(ctx: Context): void {
     }, ms)
   }
 
-  const section = (): { enabled: boolean; size: number; right: number; bottom: number } => {
+  const section = (): { enabled: boolean; hidden: boolean; size: number; right: number; bottom: number } => {
     const s = current()
     const clampInset = (value: number): number =>
       Math.round(Math.min(WATERBALL_INSET_MAX, Math.max(0, value)))
     return {
       enabled: s.enabled ?? true,
+      hidden: s.hidden ?? true,
       size: Math.round(Math.min(WATERBALL_SIZE_MAX, Math.max(WATERBALL_SIZE_MIN, s.size ?? 120))),
       right: clampInset(s.right ?? WATERBALL_DEFAULT_INSET),
       bottom: clampInset(s.bottom ?? WATERBALL_DEFAULT_INSET),
@@ -155,7 +161,7 @@ export function apply(ctx: Context): void {
         return
       }
       const s = section()
-      json(res, 200, { ok: true, mood, enabled: s.enabled, size: s.size, right: s.right, bottom: s.bottom })
+      json(res, 200, { ok: true, mood, enabled: s.enabled, hidden: s.hidden, size: s.size, right: s.right, bottom: s.bottom })
     },
   }
 
@@ -171,6 +177,7 @@ export function apply(ctx: Context): void {
 
   installSettingsSection(ctx, settingsNamespace(WATERBALL_SETTINGS_NAMESPACE), WATERBALL_SETTINGS_SCHEMA, {
     enabled: true,
+    hidden: true,
     size: 120,
     right: WATERBALL_DEFAULT_INSET,
     bottom: WATERBALL_DEFAULT_INSET,

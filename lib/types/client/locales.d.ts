@@ -10,6 +10,8 @@ export declare const zh: {
     readonly 'settings.description': "右下角的天蓝色水球宠物，随 Agent 活动切换状态。";
     readonly 'settings.enabled': "启用水球";
     readonly 'settings.enabledHint': "关闭后隐藏水球并停止轮询，可在设置里重新启用。";
+    readonly 'settings.hidden': "隐藏网页水球";
+    readonly 'settings.hiddenHint': "仅不在网页端显示水球；状态接口仍保持可用（桌面呼吸灯可继续读取）。";
     readonly 'settings.size': "大小（px）";
     readonly 'settings.sizeHint': "水球渲染宽度，范围 64–400。";
     readonly 'settings.right': "距右侧（px）";
@@ -37,6 +39,8 @@ export declare const en: {
     readonly 'settings.description': "A floating sky-blue water ball that reacts to agent activity.";
     readonly 'settings.enabled': "Enable the water ball";
     readonly 'settings.enabledHint': "When off, the water ball hides and polling stops; re-enable it here.";
+    readonly 'settings.hidden': "Hide the web water ball";
+    readonly 'settings.hiddenHint': "Hides the ball in the web UI only; the status API stays available (e.g. for the desktop breathing light).";
     readonly 'settings.size': "Size (px)";
     readonly 'settings.sizeHint': "Rendered width, 64–400.";
     readonly 'settings.right': "Right inset (px)";
