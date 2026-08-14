@@ -29,3 +29,5 @@ jobs:
         run: pnpm typecheck
       - name: Build
         run: pnpm build
+      - name: Check generated artifacts
+        run: git diff --exit-code -- lib

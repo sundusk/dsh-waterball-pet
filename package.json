@@ -44,8 +44,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsdown",
     "typecheck": "tsc --noEmit",
-    "watch": "tsdown --watch",
-    "prepare": "pnpm build"
+    "watch": "tsdown --watch"
   },
   "dependencies": {
     "schemastery": "^3.18.0"

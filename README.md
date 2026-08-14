@@ -26,8 +26,9 @@ Agent 活动切换状态与氛围呼吸光，并可在「设置 → 插件配置
 dsh plugin --profile web add github:sundusk/dsh-waterball-pet
 ```
 
-GitHub 安装会通过 `prepare` 自动构建 host/browser 两个插件部分。安装完成后重启
-`dsh web`，然后打开 Web UI，在「设置 → 插件 → Web UI 插件」中启用「水球宠物」。
+仓库已包含构建后的 host/browser 两个插件部分，安装时不需要执行第三方构建脚本，
+可以直接使用。安装完成后重启 `dsh web`，然后打开 Web UI，在「设置 → 插件 →
+Web UI 插件」中启用「水球宠物」。
 
 ### 本地开发安装
 
@@ -35,7 +36,8 @@ GitHub 安装会通过 `prepare` 自动构建 host/browser 两个插件部分。
 dsh plugin --profile web add link:<本仓库绝对路径>
 ```
 
-重启 `dsh web` 后生效。插件代码在修改后可运行 `pnpm build` 重新构建。
+重启 `dsh web` 后生效。插件代码在修改后运行 `pnpm build`，并将更新后的 `lib/`
+一并提交。
 
 ### npm（可选）
 
