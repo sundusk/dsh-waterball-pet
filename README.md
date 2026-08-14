@@ -41,6 +41,21 @@ dsh plugin --profile web add github:sundusk/dsh-waterball-pet
 可以直接使用。安装完成后重启 `dsh web`，然后打开 Web UI，在「设置 → 插件 →
 Web UI 插件」中启用「水球宠物」。
 
+> **兼容性注意：白名单问题**
+>
+> 插件能够从 GitHub 安装成功，不代表当前 DeepSeek Harness 宿主版本已经允许
+> `waterball` 设置命名空间。Harness 的 `@deepseek-ai/dsh-host-apiproxy` 会维护一份
+> Web UI 设置白名单；如果你的版本还没有包含 `waterball`，可能出现以下情况：
+>
+> - 插件已经安装，但设置卡片显示不可用或只读；
+> - 启用、大小、位置等设置无法保存；
+> - 某些宿主版本中水球覆盖层也可能不会显示。
+>
+> 遇到这些情况，请先升级 DeepSeek Harness 到包含 `waterball` 白名单的版本，重启
+> `dsh web` 后再检查。修改本机 npx 缓存中的宿主文件只能作为临时开发排查手段，
+> 不会替其他用户解决这个问题，也可能在重新安装后被覆盖。这个兼容性问题属于
+> Harness 宿主，不是 npm/GitHub 分发方式本身造成的。
+
 ### 本地开发安装
 
 ```sh
@@ -103,6 +118,21 @@ dsh plugin --profile web add github:sundusk/dsh-waterball-pet
 The repository includes the prebuilt host and browser artifacts, so installation does
 not need to run a third-party build script. Restart `dsh web`, then enable **Water Ball
 Pet** under **Settings → Plugins → Web UI Plugins**.
+
+> **Compatibility note: host allowlist**
+>
+> A successful GitHub installation does not guarantee that the installed DeepSeek Harness
+> host supports the `waterball` settings namespace. The Harness
+> `@deepseek-ai/dsh-host-apiproxy` package maintains an allowlist for Web UI settings.
+> If your Harness version does not include `waterball`, the plugin may install but its
+> settings card can be unavailable or read-only, settings such as enabled/size/position
+> may not persist, and some host versions may not render the water-ball overlay.
+>
+> If this happens, upgrade DeepSeek Harness to a release that includes `waterball` in the
+> host allowlist, restart `dsh web`, and check again. Editing the local npx cache is only a
+> temporary development workaround; it does not fix other users' installations and may be
+> overwritten during reinstall. This is a Harness host compatibility issue, not a GitHub
+> or npm distribution issue.
 
 ### Local development
 
