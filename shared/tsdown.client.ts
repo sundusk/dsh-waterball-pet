@@ -201,6 +201,10 @@ function clientLibraryConfig(
 }
 
 function clientConfig(id: string, entry: string): UserConfig {
+  // Keep virtual CSS module ids independent of the checkout path. The
+  // generated class names and committed lib/client.js must be reproducible
+  // on a developer machine and in GitHub Actions alike.
+  const cssSources = new Map<string, string>()
   return {
     name: `${id}/client`,
     entry: { client: entry },
@@ -260,16 +264,19 @@ function clientConfig(id: string, entry: string): UserConfig {
       resolveId(source: string, importer: string | undefined) {
         if (!source.endsWith('.module.css')) return null
         const abs = importer !== undefined ? sourceAssetPath(source, importer) : source
-        return CSS_VIRTUAL_PREFIX + abs + CSS_VIRTUAL_SUFFIX
+        const virtualId = CSS_VIRTUAL_PREFIX + basename(abs) + CSS_VIRTUAL_SUFFIX
+        cssSources.set(virtualId, abs)
+        return virtualId
       },
       async load(virtualId: string) {
         if (!virtualId.startsWith(CSS_VIRTUAL_PREFIX)) return null
-        const fileId = virtualId.slice(CSS_VIRTUAL_PREFIX.length, -CSS_VIRTUAL_SUFFIX.length)
+        const fileId = cssSources.get(virtualId)
+        if (fileId === undefined) return null
         // The virtual id otherwise hides the physical stylesheet from Rolldown's watch graph.
         this.addWatchFile(fileId)
         const source = await readFile(fileId)
         const { code, exports: cssExports } = transform({
-          filename: fileId,
+          filename: basename(fileId),
           code: source,
           cssModules: { pattern: '[hash]_[local]' },
           minify: true,
