@@ -34,7 +34,7 @@ export interface WaterballSettingsSection {
     bottom?: number;
 }
 /** The mood the browser half renders (one of the CSS state/halo classes). */
-export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving';
+export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving' | 'authorizing';
 /** Settings section schema. */
 export declare const WATERBALL_SETTINGS_SCHEMA: z<Schemastery.ObjectS<{
     enabled: z<boolean, boolean>;

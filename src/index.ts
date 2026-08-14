@@ -48,7 +48,7 @@ export interface WaterballSettingsSection {
 }
 
 /** The mood the browser half renders (one of the CSS state/halo classes). */
-export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving'
+export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving' | 'authorizing'
 
 /** Settings section schema. */
 export const WATERBALL_SETTINGS_SCHEMA = z.object({
@@ -120,6 +120,19 @@ export function apply(ctx: Context): void {
     } else if (event.type === 'tool/result') {
       mood = 'waiting'
       holdUntil = 0
+    } else if (event.type === 'approval/asked') {
+      // 授权等待：用户尚未批准工具调用 → 黄色（authorizing）
+      mood = 'authorizing'
+      holdUntil = 0
+    } else if (event.type === 'approval/decided') {
+      // 授权已决定：批准 → 等后续工具事件；拒绝/取消/不可用 → 视为失败
+      const payload = (event.data ?? {}) as { result?: string }
+      if (payload.result === 'allowed-once') {
+        mood = 'waiting'
+        holdUntil = 0
+      } else if (payload.result === 'rejected' || payload.result === 'cancelled' || payload.result === 'unavailable') {
+        setTransient('failed', 3000)
+      }
     } else if (event.type === 'activity/status') {
       const payload = (event.data ?? {}) as { phase?: string }
       if (payload.phase === undefined) return

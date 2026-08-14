@@ -10,7 +10,7 @@ import { type ReactPortal } from 'react';
 import type { InjectFace, PropsLocale } from '@deepseek-ai/dsh-client-ui-slots';
 import { NS } from './locales.ts';
 /** The pet's mood: one of the CSS state/halo classes. */
-export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving';
+export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving' | 'authorizing';
 /** Injected actions handed to the dock entry component. */
 export interface WaterballDockFace {
     /** Persist a drag position into the `waterball` settings namespace. */

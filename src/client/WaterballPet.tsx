@@ -15,7 +15,7 @@ import { NS } from './locales.ts'
 import css from './waterball.module.css'
 
 /** The pet's mood: one of the CSS state/halo classes. */
-export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving'
+export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving' | 'authorizing'
 
 /** The host status payload the browser polls. */
 interface StatusView {
@@ -98,6 +98,7 @@ function WaterballPet({ persistPosition }: WaterballDockFace) {
     : status?.mood === 'done' ? 'done'
     : status?.mood === 'jumping' ? 'jumping'
     : status?.mood === 'waiting' ? 'waiting'
+    : status?.mood === 'authorizing' ? 'authorizing'
     : 'idle'
 
   const size = typeof status?.size === 'number' ? status.size : DEFAULT_SIZE
