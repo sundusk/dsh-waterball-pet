@@ -7,13 +7,19 @@ export declare const NS = "waterball";
 /** Chinese copy. */
 export declare const zh: {
     readonly 'settings.title': "水球宠物";
-    readonly 'settings.description': "右下角的天蓝色水球宠物，随 Agent 活动切换状态。";
+    readonly 'settings.description': "右下角的水球宠物，内部颜色随 Agent 活动状态变化，外层白色渐变保持不变。";
     readonly 'settings.enabled': "启用水球";
     readonly 'settings.enabledHint': "关闭后隐藏水球并停止轮询，可在设置里重新启用。";
     readonly 'settings.hidden': "隐藏网页水球";
     readonly 'settings.hiddenHint': "仅不在网页端显示水球；状态接口仍保持可用（桌面呼吸灯可继续读取）。";
     readonly 'settings.size': "大小（px）";
     readonly 'settings.sizeHint': "水球渲染宽度，范围 64–400。";
+    readonly 'settings.eyeColor': "眼睛颜色";
+    readonly 'settings.eyeColorHint': "选择眼睛的填充颜色：白色或黑色。";
+    readonly 'settings.eyeWhite': "白色";
+    readonly 'settings.eyeBlack': "黑色";
+    readonly 'settings.showEyes': "显示眼睛";
+    readonly 'settings.showEyesHint': "关闭后水球不再绘制眼睛。";
     readonly 'settings.right': "距右侧（px）";
     readonly 'settings.rightHint': "距视口右边缘的水平内缩距离。";
     readonly 'settings.bottom': "距底部（px）";
@@ -36,13 +42,19 @@ export declare const zh: {
 /** English copy. */
 export declare const en: {
     readonly 'settings.title': "Water Ball";
-    readonly 'settings.description': "A floating sky-blue water ball that reacts to agent activity.";
+    readonly 'settings.description': "A floating water ball whose inner color follows the agent activity while the white outer gradient stays unchanged.";
     readonly 'settings.enabled': "Enable the water ball";
     readonly 'settings.enabledHint': "When off, the water ball hides and polling stops; re-enable it here.";
     readonly 'settings.hidden': "Hide the web water ball";
     readonly 'settings.hiddenHint': "Hides the ball in the web UI only; the status API stays available (e.g. for the desktop breathing light).";
     readonly 'settings.size': "Size (px)";
     readonly 'settings.sizeHint': "Rendered width, 64–400.";
+    readonly 'settings.eyeColor': "Eye color";
+    readonly 'settings.eyeColorHint': "Pick the eye fill: white or black.";
+    readonly 'settings.eyeWhite': "White";
+    readonly 'settings.eyeBlack': "Black";
+    readonly 'settings.showEyes': "Show eyes";
+    readonly 'settings.showEyesHint': "When off, the water ball draws no eyes.";
     readonly 'settings.right': "Right inset (px)";
     readonly 'settings.rightHint': "Horizontal inset from the viewport right edge.";
     readonly 'settings.bottom': "Bottom inset (px)";

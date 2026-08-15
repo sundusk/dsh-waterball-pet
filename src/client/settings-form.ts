@@ -121,6 +121,16 @@ export function booleanField(field: string): FieldSpec {
   }
 }
 
+/** A fixed-choice field, edited through one of the allowed draft values. */
+export function choiceField(field: string, choices: readonly string[]): FieldSpec {
+  const allowed = new Set(choices)
+  return {
+    field,
+    format: value => typeof value === 'string' && allowed.has(value) ? value : '',
+    parse: (text) => allowed.has(text) ? { kind: 'set', value: text } : undefined,
+  }
+}
+
 /**
  * Stages one card's edits over one settings namespace and writes them on save.
  *

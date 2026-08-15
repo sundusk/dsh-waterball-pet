@@ -67,6 +67,8 @@ export declare function numberField(field: string): FieldSpec;
 export declare function textField(field: string): FieldSpec;
 /** A boolean field, edited through true/false draft text. */
 export declare function booleanField(field: string): FieldSpec;
+/** A fixed-choice field, edited through one of the allowed draft values. */
+export declare function choiceField(field: string, choices: readonly string[]): FieldSpec;
 /**
  * Stages one card's edits over one settings namespace and writes them on save.
  *

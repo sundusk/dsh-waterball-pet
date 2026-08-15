@@ -75,3 +75,11 @@ export declare function BooleanField(props: FieldProps & {
     /** Copy for the off option. */
     offLabel: string;
 }): import("react").JSX.Element;
+/** A staged fixed-choice field rendered as a select. */
+export declare function SelectField(props: FieldProps & {
+    /** Selectable options: value → visible label. */
+    options: ReadonlyArray<{
+        value: string;
+        label: string;
+    }>;
+}): import("react").JSX.Element;

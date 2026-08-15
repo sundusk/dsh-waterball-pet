@@ -1,9 +1,10 @@
 /**
- * The floating water ball. Renders a fixed-position SVG ball (sky-blue radial
- * gradient, white vertical-ellipse eyes), a state-colored ambient halo, and
- * drives the animation state from a poll of /api/waterball/status. Click to
- * wave; drag to reposition (the final position is persisted back into the
- * `waterball` settings namespace).
+ * The floating water ball. Renders a fixed-position SVG ball whose inner
+ * radial-gradient color follows the agent state while the white outer edge
+ * stays constant, softened by a drop shadow and a static ground contact
+ * shadow. The animation state is driven by a poll of /api/waterball/status.
+ * Click to wave; drag to reposition (the final position is persisted back into
+ * the `waterball` settings namespace).
  * @module @linxin666/dsh-waterball/client/WaterballPet
  */
 
@@ -14,7 +15,7 @@ import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import { NS } from './locales.ts'
 import css from './waterball.module.css'
 
-/** The pet's mood: one of the CSS state/halo classes. */
+/** The pet's mood: one of the CSS state classes. */
 export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving' | 'authorizing' | 'questioning'
 
 /** The host status payload the browser polls. */
@@ -25,6 +26,8 @@ interface StatusView {
   size?: number
   right?: number
   bottom?: number
+  eyeColor?: 'white' | 'black'
+  showEyes?: boolean
 }
 
 const POLL_MS = 700
@@ -37,22 +40,41 @@ function clamp(value: number, max: number): number {
   return Math.max(0, Math.min(max, value))
 }
 
-/** The ball body: sky-blue radial gradient + white vertical-ellipse eyes. */
-function WaterballSvg({ size }: { size: number }): ReactElement {
+/** Per-mood inner gradient colors; the white outer edge never changes. */
+const MOOD_COLORS: Record<WaterballMood, { center: string; mid: string }> = {
+  idle: { center: '#4FB3F7', mid: '#8FD4FF' },
+  authorizing: { center: '#FACC15', mid: '#FDE68A' },
+  questioning: { center: '#EC4899', mid: '#F9A8D4' },
+  waiting: { center: '#34D399', mid: '#A7F3D0' },
+  jumping: { center: '#A855F7', mid: '#D8B4FE' },
+  done: { center: '#22D3EE', mid: '#A5F3FC' },
+  failed: { center: '#F87171', mid: '#FCA5A5' },
+  stopped: { center: '#111827', mid: '#6B7280' },
+  waving: { center: '#FB923C', mid: '#FDBA74' },
+}
+
+/** The ball body: state-colored inner radial gradient + white outer edge + optional colored eyes. */
+function WaterballSvg({ size, mood, eyeColor, showEyes }: { size: number; mood: WaterballMood; eyeColor: 'white' | 'black'; showEyes: boolean }): ReactElement {
+  const { center, mid } = MOOD_COLORS[mood]
+  const eyeFill = eyeColor === 'black' ? '#1F2937' : '#FFFFFF'
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width={size} height={size} style={{ display: 'block' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width={size} height={size} style={{ display: 'block', filter: 'drop-shadow(0 5px 10px rgba(0,0,0,0.20))' }}>
       <defs>
         <radialGradient id="dswb-ball-grad" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#4FB3F7" />
-          <stop offset="55%" stopColor="#8FD4FF" />
+          <stop offset="0%" stopColor={center} />
+          <stop offset="55%" stopColor={mid} />
           <stop offset="100%" stopColor="#FFFFFF" />
         </radialGradient>
       </defs>
       <circle cx="60" cy="60" r="52" fill="url(#dswb-ball-grad)" />
-      <g className={css.eye}>
-        <ellipse cx="46" cy="60" rx="6" ry="11" fill="#FFFFFF" />
-        <ellipse cx="74" cy="60" rx="6" ry="11" fill="#FFFFFF" />
-      </g>
+      {showEyes
+        ? (
+          <g className={css.eye}>
+            <ellipse cx="46" cy="60" rx="6" ry="11" fill={eyeFill} />
+            <ellipse cx="74" cy="60" rx="6" ry="11" fill={eyeFill} />
+          </g>
+        )
+        : null}
     </svg>
   )
 }
@@ -63,7 +85,7 @@ export interface WaterballDockFace {
   persistPosition: (right: number, bottom: number) => void
 }
 
-/** The floating water ball: halo + body, driven by the status poll. */
+/** The floating water ball: body only, driven by the status poll. */
 function WaterballPet({ persistPosition }: WaterballDockFace) {
   const [status, setStatus] = useState<StatusView | null>(null)
   const [wave, setWave] = useState(false)
@@ -103,6 +125,8 @@ function WaterballPet({ persistPosition }: WaterballDockFace) {
     : 'idle'
 
   const size = typeof status?.size === 'number' ? status.size : DEFAULT_SIZE
+  const eyeColor: 'white' | 'black' = status?.eyeColor === 'black' ? 'black' : 'white'
+  const showEyes = status?.showEyes ?? true
   const base = { right: status?.right ?? DEFAULT_INSET, bottom: status?.bottom ?? DEFAULT_INSET }
   const pos = dragPos ?? base
 
@@ -136,7 +160,6 @@ function WaterballPet({ persistPosition }: WaterballDockFace) {
 
   return (
     <div className={css.float} style={{ right: pos.right, bottom: pos.bottom }}>
-      <div className={`${css.halo} ${css['halo-' + mood]}`} />
       <div
         className={`${css.ball} ${css['state-' + mood]}`}
         role="button"
@@ -146,8 +169,9 @@ function WaterballPet({ persistPosition }: WaterballDockFace) {
         onPointerUp={onPointerUp}
         onClick={onClick}
       >
-        <WaterballSvg size={size} />
+        <WaterballSvg size={size} mood={mood} eyeColor={eyeColor} showEyes={showEyes} />
       </div>
+      <div className={css.contact} style={{ width: size * 0.62, height: size * 0.13 }} />
     </div>
   )
 }

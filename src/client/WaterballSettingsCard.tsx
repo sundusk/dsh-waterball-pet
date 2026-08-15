@@ -5,8 +5,8 @@
 
 import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import type { SettingsScope, SnapshotStore } from '@deepseek-ai/dsh-client-runtime/client'
-import { PluginSettingsCard, ValueField, BooleanField } from './PluginSettingsCard.tsx'
-import { CardForm, booleanField, numberField, type CardActions, type CardShell, type FieldState as CardFieldState } from './settings-form.ts'
+import { PluginSettingsCard, ValueField, BooleanField, SelectField } from './PluginSettingsCard.tsx'
+import { CardForm, booleanField, numberField, choiceField, type CardActions, type CardShell, type FieldState as CardFieldState } from './settings-form.ts'
 
 /** The water ball's settings fields this card edits. */
 export interface WaterballSettings {
@@ -20,6 +20,10 @@ export interface WaterballSettings {
   right?: number
   /** Vertical inset from the viewport bottom edge, px. */
   bottom?: number
+  /** Eye fill color. */
+  eyeColor?: 'white' | 'black'
+  /** Whether the eyes are drawn. */
+  showEyes?: boolean
 }
 
 /** What the water ball settings card renders. */
@@ -34,6 +38,10 @@ export interface WaterballSettingsCardState extends CardShell {
   right: CardFieldState
   /** Bottom inset. */
   bottom: CardFieldState
+  /** Eye fill color. */
+  eyeColor: CardFieldState
+  /** Whether the eyes are drawn. */
+  showEyes: CardFieldState
 }
 
 /** The registration-side face the card's slot entry injects. */
@@ -51,7 +59,15 @@ export class WaterballSettingsCardController {
 
   /** @param scope - the bound settings scope for the `waterball` namespace. */
   constructor(scope: SettingsScope<WaterballSettings>) {
-    this.form = new CardForm(scope, [booleanField('enabled'), booleanField('hidden'), numberField('size'), numberField('right'), numberField('bottom')])
+    this.form = new CardForm(scope, [
+      booleanField('enabled'),
+      booleanField('hidden'),
+      numberField('size'),
+      numberField('right'),
+      numberField('bottom'),
+      choiceField('eyeColor', ['white', 'black']),
+      booleanField('showEyes'),
+    ])
     this.store = this.form.bind(() => this.projection())
   }
 
@@ -63,6 +79,8 @@ export class WaterballSettingsCardController {
       size: this.form.field('size'),
       right: this.form.field('right'),
       bottom: this.form.field('bottom'),
+      eyeColor: this.form.field('eyeColor'),
+      showEyes: this.form.field('showEyes'),
     }
   }
 
@@ -128,6 +146,31 @@ export function WaterballSettingsCard(props: WaterballSettingsCardProps) {
         {...state.hidden}
         onEdit={(text) => { props.edit('hidden', text) }}
         onReset={() => { props.resetField('hidden') }}
+      />
+      <SelectField
+        id="settings-waterball-eyecolor"
+        label={t('settings.eyeColor')}
+        hint={t('settings.eyeColorHint')}
+        options={[
+          { value: 'white', label: t('settings.eyeWhite') },
+          { value: 'black', label: t('settings.eyeBlack') },
+        ]}
+        {...fieldProps}
+        {...state.eyeColor}
+        onEdit={(text) => { props.edit('eyeColor', text) }}
+        onReset={() => { props.resetField('eyeColor') }}
+      />
+      <BooleanField
+        id="settings-waterball-showeyes"
+        label={t('settings.showEyes')}
+        hint={t('settings.showEyesHint')}
+        inheritLabel={t('settings.inherit')}
+        onLabel={t('settings.on')}
+        offLabel={t('settings.off')}
+        {...fieldProps}
+        {...state.showEyes}
+        onEdit={(text) => { props.edit('showEyes', text) }}
+        onReset={() => { props.resetField('showEyes') }}
       />
       <ValueField
         id="settings-waterball-size"

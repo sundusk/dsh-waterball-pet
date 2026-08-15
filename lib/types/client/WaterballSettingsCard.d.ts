@@ -17,6 +17,10 @@ export interface WaterballSettings {
     right?: number;
     /** Vertical inset from the viewport bottom edge, px. */
     bottom?: number;
+    /** Eye fill color. */
+    eyeColor?: 'white' | 'black';
+    /** Whether the eyes are drawn. */
+    showEyes?: boolean;
 }
 /** What the water ball settings card renders. */
 export interface WaterballSettingsCardState extends CardShell {
@@ -30,6 +34,10 @@ export interface WaterballSettingsCardState extends CardShell {
     right: CardFieldState;
     /** Bottom inset. */
     bottom: CardFieldState;
+    /** Eye fill color. */
+    eyeColor: CardFieldState;
+    /** Whether the eyes are drawn. */
+    showEyes: CardFieldState;
 }
 /** The registration-side face the card's slot entry injects. */
 export interface WaterballSettingsCardFace extends CardActions {

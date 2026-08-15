@@ -32,8 +32,12 @@ export interface WaterballSettingsSection {
     right?: number;
     /** Vertical inset from the viewport bottom edge, px. */
     bottom?: number;
+    /** Eye fill color, normalized to 'white' | 'black' by the status route. */
+    eyeColor?: string;
+    /** Whether the eyes are drawn at all. */
+    showEyes?: boolean;
 }
-/** The mood the browser half renders (one of the CSS state/halo classes). */
+/** The mood the browser half renders (one of the CSS state classes). */
 export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving' | 'authorizing' | 'questioning';
 /** Settings section schema. */
 export declare const WATERBALL_SETTINGS_SCHEMA: z<Schemastery.ObjectS<{
@@ -42,12 +46,16 @@ export declare const WATERBALL_SETTINGS_SCHEMA: z<Schemastery.ObjectS<{
     size: z<number, number>;
     right: z<number, number>;
     bottom: z<number, number>;
+    eyeColor: z<string, string>;
+    showEyes: z<boolean, boolean>;
 }>, Schemastery.ObjectT<{
     enabled: z<boolean, boolean>;
     hidden: z<boolean, boolean>;
     size: z<number, number>;
     right: z<number, number>;
     bottom: z<number, number>;
+    eyeColor: z<string, string>;
+    showEyes: z<boolean, boolean>;
 }>>;
 /**
  * Register the water ball service surfaces and the `waterball` settings

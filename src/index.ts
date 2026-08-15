@@ -45,9 +45,13 @@ export interface WaterballSettingsSection {
   right?: number
   /** Vertical inset from the viewport bottom edge, px. */
   bottom?: number
+  /** Eye fill color, normalized to 'white' | 'black' by the status route. */
+  eyeColor?: string
+  /** Whether the eyes are drawn at all. */
+  showEyes?: boolean
 }
 
-/** The mood the browser half renders (one of the CSS state/halo classes). */
+/** The mood the browser half renders (one of the CSS state classes). */
 export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving' | 'authorizing' | 'questioning'
 
 /** Settings section schema. */
@@ -59,6 +63,10 @@ export const WATERBALL_SETTINGS_SCHEMA = z.object({
   size: z.number().step(1).min(WATERBALL_SIZE_MIN).max(WATERBALL_SIZE_MAX).default(120),
   right: z.number().step(1).min(0).max(WATERBALL_INSET_MAX).default(WATERBALL_DEFAULT_INSET),
   bottom: z.number().step(1).min(0).max(WATERBALL_INSET_MAX).default(WATERBALL_DEFAULT_INSET),
+  // eyeColor 以字符串保存（设置表单用下拉框约束为 white/black），
+  // 状态路由里再归一化为字面量类型。
+  eyeColor: z.string().default('white'),
+  showEyes: z.boolean().default(true),
 })
 
 /** Write one JSON response. */
@@ -92,7 +100,7 @@ export function apply(ctx: Context): void {
     }, ms)
   }
 
-  const section = (): { enabled: boolean; hidden: boolean; size: number; right: number; bottom: number } => {
+  const section = (): { enabled: boolean; hidden: boolean; size: number; right: number; bottom: number; eyeColor: 'white' | 'black'; showEyes: boolean } => {
     const s = current()
     const clampInset = (value: number): number =>
       Math.round(Math.min(WATERBALL_INSET_MAX, Math.max(0, value)))
@@ -102,6 +110,8 @@ export function apply(ctx: Context): void {
       size: Math.round(Math.min(WATERBALL_SIZE_MAX, Math.max(WATERBALL_SIZE_MIN, s.size ?? 120))),
       right: clampInset(s.right ?? WATERBALL_DEFAULT_INSET),
       bottom: clampInset(s.bottom ?? WATERBALL_DEFAULT_INSET),
+      eyeColor: s.eyeColor === 'black' ? 'black' : 'white',
+      showEyes: s.showEyes ?? true,
     }
   }
 
@@ -113,7 +123,7 @@ export function apply(ctx: Context): void {
     if (!section().enabled) return
     // The optional activity tracker publishes `activity/status`, but the
     // standard DSH session stream is always present. Use both so the green
-    // thinking halo does not depend on an extra activity plugin being loaded.
+    // thinking color does not depend on an extra activity plugin being loaded.
     if (event.type === 'turn/start' || event.type === 'step/start' || event.type === 'assistant/chunk') {
       mood = 'waiting'
       holdUntil = 0
@@ -200,7 +210,7 @@ export function apply(ctx: Context): void {
         return
       }
       const s = section()
-      json(res, 200, { ok: true, mood, enabled: s.enabled, hidden: s.hidden, size: s.size, right: s.right, bottom: s.bottom })
+      json(res, 200, { ok: true, mood, enabled: s.enabled, hidden: s.hidden, size: s.size, right: s.right, bottom: s.bottom, eyeColor: s.eyeColor, showEyes: s.showEyes })
     },
   }
 
@@ -220,6 +230,8 @@ export function apply(ctx: Context): void {
     size: 120,
     right: WATERBALL_DEFAULT_INSET,
     bottom: WATERBALL_DEFAULT_INSET,
+    eyeColor: 'white',
+    showEyes: true,
   }, {
     setSource: (source) => { current = source },
     onChange: () => {
