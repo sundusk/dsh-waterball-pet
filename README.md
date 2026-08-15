@@ -19,7 +19,7 @@
 | 思考 / 工作 | `waiting` | 绿色 `#34d399` | `turn/start`、`step/start`、`assistant/chunk`；或 `activity/status` 的 `waiting` / `thinking` | 左右张望，持续到下一状态 |
 | 工具调用 | `jumping` | 紫色 `#a855f7` | `tool/call`；或 `activity/status` 的 `tool` | 跳跃，持续到工具结果 |
 | 授权等待 | `authorizing` | 黄色 `#facc15` | `approval/asked` | 柔和呼吸，直到 `approval/decided`（批准→继续，拒绝/取消→出错） |
-| 等待选择 | `questioning` | 粉色 `#ec4899` | `tool/call` 的 `ask_user_question` | 左右摆动，直到 `tool/result`（回答→继续思考；取消/关闭→停止） |
+| 做出你的抉择 | `questioning` | 粉色 `#ec4899` | `tool/call` 的 `ask_user_question` | 左右摆动，直到 `tool/result`（回答→继续思考；取消/关闭→停止） |
 | 工具结果后继续思考 | `waiting` | 绿色 `#34d399` | `tool/result` | 回到思考动画 |
 | 完成 | `done` | 青色 `#22d3ee` | `activity/status` 的 `done`；或 `turn/end` 的 `reason=completed` | 欢快跳动约 2.5 秒 |
 | 出错 | `failed` | 红色 `#f87171` | `turn/end` 的 `reason=error` | 低头沮丧约 3 秒 |
