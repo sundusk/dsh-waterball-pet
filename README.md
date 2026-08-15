@@ -19,6 +19,7 @@
 | 思考 / 工作 | `waiting` | 绿色 `#34d399` | `turn/start`、`step/start`、`assistant/chunk`；或 `activity/status` 的 `waiting` / `thinking` | 左右张望，持续到下一状态 |
 | 工具调用 | `jumping` | 紫色 `#a855f7` | `tool/call`；或 `activity/status` 的 `tool` | 跳跃，持续到工具结果 |
 | 授权等待 | `authorizing` | 黄色 `#facc15` | `approval/asked` | 柔和呼吸，直到 `approval/decided`（批准→继续，拒绝/取消→出错） |
+| 等待选择 | `questioning` | 粉色 `#ec4899` | `tool/call` 的 `ask_user_question` | 左右摆动，直到 `tool/result`（回答→继续思考；取消/关闭→停止） |
 | 工具结果后继续思考 | `waiting` | 绿色 `#34d399` | `tool/result` | 回到思考动画 |
 | 完成 | `done` | 青色 `#22d3ee` | `activity/status` 的 `done`；或 `turn/end` 的 `reason=completed` | 欢快跳动约 2.5 秒 |
 | 出错 | `failed` | 红色 `#f87171` | `turn/end` 的 `reason=error` | 低头沮丧约 3 秒 |
@@ -88,6 +89,7 @@ current state.
 | Thinking / working | `waiting` | Green `#34d399` | `turn/start`, `step/start`, `assistant/chunk`; or `activity/status` phase `waiting` / `thinking` | Side-to-side tilt until the next state |
 | Tool call | `jumping` | Purple `#a855f7` | `tool/call`; or `activity/status` phase `tool` | Hopping until the tool result |
 | Awaiting approval | `authorizing` | Yellow `#facc15` | `approval/asked` | Soft breathing until `approval/decided` (allowed → continue; rejected/cancelled → error) |
+| Awaiting your choice | `questioning` | Pink `#ec4899` | `tool/call` of `ask_user_question` | Side-to-side tilt until `tool/result` (answered → continue thinking; cancelled/dismissed → stopped) |
 | Thinking after a tool result | `waiting` | Green `#34d399` | `tool/result` | Returns to the thinking animation |
 | Completed | `done` | Cyan `#22d3ee` | `activity/status` phase `done`; or `turn/end` with `reason=completed` | Cheerful jump for about 2.5 seconds |
 | Error | `failed` | Red `#f87171` | `turn/end` with `reason=error` | Drooping animation for about 3 seconds |
