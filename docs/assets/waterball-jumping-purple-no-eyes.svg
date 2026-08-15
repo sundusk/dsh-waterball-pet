@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">
+  <defs>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="190%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+    <radialGradient id="g" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#A855F7"/>
+      <stop offset="55%" stop-color="#D8B4FE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="contact" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.16"/>
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.04"/>
+      <stop offset="78%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="140" height="140" fill="#F0F2F5"/>
+  <g filter="url(#shadow)">
+    <g transform="translate(10 8)"><circle cx="60" cy="60" r="52" fill="url(#g)"/></g>
+
+  </g>
+  <ellipse cx="70" cy="128" rx="37.2" ry="7.8" fill="url(#contact)"/>
+</svg>
