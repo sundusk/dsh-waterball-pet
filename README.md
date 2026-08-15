@@ -60,8 +60,9 @@ dsh plugin --profile web add github:sundusk/dsh-waterball-pet
 ```
 
 仓库已包含构建后的 host/browser 两个插件部分，安装时不需要执行第三方构建脚本，
-可以直接使用。安装完成后重启 `dsh web`，然后打开 Web UI，在「设置 → 插件 →
-Web UI 插件」中启用「水球宠物」。
+可以直接使用。安装完成后重启 `dsh web`，然后打开 Web UI，在「设置 → 插件」的
+插件配置列表中启用「水球宠物」（卡片与内置的 Shell / Agent loop / Web search
+卡片平级，位于「Web UI 插件」分组之外）。
 
 > **兼容性注意：白名单问题**
 >

@@ -2,7 +2,9 @@
  * dsh-waterball browser half — renders the floating water ball and drives it
  * from the host's same-origin `GET /api/waterball/status` endpoint, gated by
  * the `waterball` settings namespace `enabled` master switch. It also seats a
- * plugin configuration card in the Web UI plugin group (settings page).
+ * plugin configuration card directly in the settings plugin section, on the
+ * same level as the built-in Shell / Agent loop / Web search cards and the
+ * "Web UI 插件" family group.
  * @module @linxin666/dsh-waterball/client
  */
 
@@ -26,16 +28,20 @@ export const inject = ['slots', 'locale', 'connection', 'settingsScope', 'remote
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface SlotMap {
     /**
-     * The child slot the Web UI plugin group declares; this card registers
-     * into the group instead of the top-level `settings.plugin.item` list.
+     * One plugin's configuration card inside the settings plugin section.
+     * Type-only local copy of the slot the official SDK
+     * (`dsh-client-ui-settings-plugins`) declares at runtime; kept here so
+     * this plugin's typecheck stays self-contained. Registering here puts the
+     * card on the same level as the built-in Shell / Agent loop / Web search
+     * cards and the "Web UI 插件" family group.
      */
-    'web-ui.plugin.item': { kind: 'list'; scope: 'root'; owner: SettingsPluginItemOwnerProps }
+    'settings.plugin.item': { kind: 'list'; scope: 'root'; owner: SettingsPluginItemOwnerProps }
     /** Frame-wide overlay that is rendered on both the new-session and active-session pages. */
     'shell.overlay': { kind: 'list'; scope: 'root'; owner: ShellOverlayOwnerProps }
   }
 }
 
-/** Owner share of a plugin card (the group card supplies nothing). */
+/** Owner share of a plugin card (the settings section supplies nothing). */
 export interface SettingsPluginItemOwnerProps {
   /** Marker field: card owner props are intentionally empty. */
   children?: never
@@ -50,7 +56,7 @@ export interface ShellOverlayOwnerProps {
 /**
  * Client plugin body: register dictionaries, mount the water ball and its
  * poll loop while the plugin is enabled, and seat the settings card in the
- * Web UI plugin group.
+ * settings plugin section.
  * @param ctx - client root context.
  */
 export function apply(ctx: ClientContext): void {
@@ -76,10 +82,12 @@ export function apply(ctx: ClientContext): void {
   }
 
   // Plugin configuration card: one staged form over the `waterball` settings
-  // namespace, contributed to the Web UI plugin group.
+  // namespace, contributed to the settings plugin section at the top level
+  // (a sibling of the built-in Shell / Agent loop / Web search cards and the
+  // "Web UI 插件" family group card).
   const card = new WaterballSettingsCardController(settingsScope)
-  ctx.slots.inject('web-ui.plugin.item', () => ctx.slots.register({
-    name: 'web-ui.plugin.item',
+  ctx.slots.inject('settings.plugin.item', () => ctx.slots.register({
+    name: 'settings.plugin.item',
     id: 'waterball-settings',
     order: 150,
     locale: NS,
