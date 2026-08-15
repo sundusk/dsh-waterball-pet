@@ -1,7 +1,7 @@
 {
   "name": "@linxin666/dsh-waterball",
   "description": "Water ball pet plugin for the dsh web GUI: a floating sky-blue water ball with white eyes that reacts to agent activity (idle / thinking / tool) and ships an enable toggle plus size in the Web UI plugin settings.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "repository": {
     "type": "git",
