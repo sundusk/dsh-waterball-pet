@@ -33,25 +33,25 @@
 标准 DSH 会话事件始终作为状态来源；如果额外安装了活动状态插件，也兼容
 `activity/status` 事件。
 
-### 状态外观
+### 状态外观（黑色眼睛）
 
-以下为不同状态下的水球颜色：
+以下为不同状态下的水球实际外观（黑色眼睛版，含柔和投影与接触阴影）：
 
 <table>
   <tr>
-    <td align="center"><img src="./docs/assets/waterball-idle-blue-no-eyes.png" width="112" alt="空闲，蓝色水球"><br>空闲 · idle</td>
-    <td align="center"><img src="./docs/assets/waterball-waiting-green-no-eyes.png" width="112" alt="思考，绿色水球"><br>思考 / 工作 · waiting</td>
-    <td align="center"><img src="./docs/assets/waterball-jumping-purple-no-eyes.png" width="112" alt="工具调用，紫色水球"><br>工具调用 · jumping</td>
+    <td align="center"><img src="./docs/assets/waterball-idle-blue-black-eyes.png" width="112" alt="空闲，蓝色水球，黑色眼睛"><br>空闲 · idle</td>
+    <td align="center"><img src="./docs/assets/waterball-waiting-green-black-eyes.png" width="112" alt="思考，绿色水球，黑色眼睛"><br>思考 / 工作 · waiting</td>
+    <td align="center"><img src="./docs/assets/waterball-jumping-purple-black-eyes.png" width="112" alt="工具调用，紫色水球，黑色眼睛"><br>工具调用 · jumping</td>
   </tr>
   <tr>
-    <td align="center"><img src="./docs/assets/waterball-authorizing-yellow-no-eyes.png" width="112" alt="授权等待，黄色水球"><br>授权等待 · authorizing</td>
-    <td align="center"><img src="./docs/assets/waterball-questioning-pink-no-eyes.png" width="112" alt="做出你的抉择，粉色水球"><br>做出你的抉择 · questioning</td>
-    <td align="center"><img src="./docs/assets/waterball-done-cyan-no-eyes.png" width="112" alt="完成，青色水球"><br>完成 · done</td>
+    <td align="center"><img src="./docs/assets/waterball-authorizing-yellow-black-eyes.png" width="112" alt="授权等待，黄色水球，黑色眼睛"><br>授权等待 · authorizing</td>
+    <td align="center"><img src="./docs/assets/waterball-questioning-pink-black-eyes.png" width="112" alt="做出你的抉择，粉色水球，黑色眼睛"><br>做出你的抉择 · questioning</td>
+    <td align="center"><img src="./docs/assets/waterball-done-cyan-black-eyes.png" width="112" alt="完成，青色水球，黑色眼睛"><br>完成 · done</td>
   </tr>
   <tr>
-    <td align="center"><img src="./docs/assets/waterball-failed-red-no-eyes.png" width="112" alt="出错，红色水球"><br>出错 · failed</td>
-    <td align="center"><img src="./docs/assets/waterball-stopped-charcoal-no-eyes.png" width="112" alt="停止，深灰色水球"><br>停止 / 中断 · stopped</td>
-    <td align="center"><img src="./docs/assets/waterball-waving-orange-no-eyes.png" width="112" alt="点击挥手，橙色水球"><br>点击挥手 · waving</td>
+    <td align="center"><img src="./docs/assets/waterball-failed-red-black-eyes.png" width="112" alt="出错，红色水球，黑色眼睛"><br>出错 · failed</td>
+    <td align="center"><img src="./docs/assets/waterball-stopped-charcoal-black-eyes.png" width="112" alt="停止，深灰色水球，黑色眼睛"><br>停止 / 中断 · stopped</td>
+    <td align="center"><img src="./docs/assets/waterball-waving-orange-black-eyes.png" width="112" alt="点击挥手，橙色水球，黑色眼睛"><br>点击挥手 · waving</td>
   </tr>
 </table>
 
@@ -125,26 +125,27 @@ the gradient never changes. Eye color and visibility are adjustable in settings.
 The plugin always supports standard DSH session events. It also accepts the optional
 `activity/status` events when an activity-tracking plugin is installed.
 
-### State appearance
+### State appearance (black eyes)
 
-These images are rendered from the plugin's actual SVG appearance with the eyes hidden,
-showing the water ball's color for each state:
+These images are rendered from the plugin's actual SVG appearance with black
+eyes, including the drop shadow and ground contact shadow, showing the water
+ball for each state:
 
 <table>
   <tr>
-    <td align="center"><img src="./docs/assets/waterball-idle-blue-no-eyes.png" width="112" alt="Idle blue water ball"><br>Idle · idle</td>
-    <td align="center"><img src="./docs/assets/waterball-waiting-green-no-eyes.png" width="112" alt="Thinking green water ball"><br>Thinking / working · waiting</td>
-    <td align="center"><img src="./docs/assets/waterball-jumping-purple-no-eyes.png" width="112" alt="Tool call purple water ball"><br>Tool call · jumping</td>
+    <td align="center"><img src="./docs/assets/waterball-idle-blue-black-eyes.png" width="112" alt="Idle blue water ball, black eyes"><br>Idle · idle</td>
+    <td align="center"><img src="./docs/assets/waterball-waiting-green-black-eyes.png" width="112" alt="Thinking green water ball, black eyes"><br>Thinking / working · waiting</td>
+    <td align="center"><img src="./docs/assets/waterball-jumping-purple-black-eyes.png" width="112" alt="Tool call purple water ball, black eyes"><br>Tool call · jumping</td>
   </tr>
   <tr>
-    <td align="center"><img src="./docs/assets/waterball-authorizing-yellow-no-eyes.png" width="112" alt="Awaiting approval yellow water ball"><br>Awaiting approval · authorizing</td>
-    <td align="center"><img src="./docs/assets/waterball-questioning-pink-no-eyes.png" width="112" alt="Question pink water ball"><br>Awaiting your choice · questioning</td>
-    <td align="center"><img src="./docs/assets/waterball-done-cyan-no-eyes.png" width="112" alt="Completed cyan water ball"><br>Completed · done</td>
+    <td align="center"><img src="./docs/assets/waterball-authorizing-yellow-black-eyes.png" width="112" alt="Awaiting approval yellow water ball, black eyes"><br>Awaiting approval · authorizing</td>
+    <td align="center"><img src="./docs/assets/waterball-questioning-pink-black-eyes.png" width="112" alt="Question pink water ball, black eyes"><br>Awaiting your choice · questioning</td>
+    <td align="center"><img src="./docs/assets/waterball-done-cyan-black-eyes.png" width="112" alt="Completed cyan water ball, black eyes"><br>Completed · done</td>
   </tr>
   <tr>
-    <td align="center"><img src="./docs/assets/waterball-failed-red-no-eyes.png" width="112" alt="Error red water ball"><br>Error · failed</td>
-    <td align="center"><img src="./docs/assets/waterball-stopped-charcoal-no-eyes.png" width="112" alt="Stopped charcoal water ball"><br>Stopped / interrupted · stopped</td>
-    <td align="center"><img src="./docs/assets/waterball-waving-orange-no-eyes.png" width="112" alt="Click reaction orange water ball"><br>Click reaction · waving</td>
+    <td align="center"><img src="./docs/assets/waterball-failed-red-black-eyes.png" width="112" alt="Error red water ball, black eyes"><br>Error · failed</td>
+    <td align="center"><img src="./docs/assets/waterball-stopped-charcoal-black-eyes.png" width="112" alt="Stopped charcoal water ball, black eyes"><br>Stopped / interrupted · stopped</td>
+    <td align="center"><img src="./docs/assets/waterball-waving-orange-black-eyes.png" width="112" alt="Click reaction orange water ball, black eyes"><br>Click reaction · waving</td>
   </tr>
 </table>
 
