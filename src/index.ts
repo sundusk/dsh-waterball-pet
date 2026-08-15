@@ -48,7 +48,7 @@ export interface WaterballSettingsSection {
 }
 
 /** The mood the browser half renders (one of the CSS state/halo classes). */
-export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving' | 'authorizing'
+export type WaterballMood = 'idle' | 'waiting' | 'jumping' | 'done' | 'failed' | 'stopped' | 'waving' | 'authorizing' | 'questioning'
 
 /** Settings section schema. */
 export const WATERBALL_SETTINGS_SCHEMA = z.object({
@@ -76,6 +76,9 @@ function json(res: ServerResponse, status: number, body: unknown): void {
 export function apply(ctx: Context): void {
   let mood: WaterballMood = 'idle'
   let holdUntil = 0
+  // ask_user_question 挂起中：选项框弹出期间锁定 questioning，防止
+  // activity 追踪器的 tool phase 把它覆盖回 jumping。
+  let questionActive = false
   let current: () => WaterballSettingsSection = () => ({ enabled: true, size: 120 })
 
   // A transient mood (done / failed / stopped) holds for `ms` before reverting
@@ -115,11 +118,31 @@ export function apply(ctx: Context): void {
       mood = 'waiting'
       holdUntil = 0
     } else if (event.type === 'tool/call') {
-      mood = 'jumping'
-      holdUntil = 0
+      // ask_user_question 是普通工具调用：选项框弹出 → 粉色 questioning，
+      // 与普通工具（紫色 jumping）区分开。
+      const call = (event.data ?? {}) as { name?: string }
+      if (call.name === 'ask_user_question') {
+        questionActive = true
+        mood = 'questioning'
+        holdUntil = 0
+      } else {
+        mood = 'jumping'
+        holdUntil = 0
+      }
     } else if (event.type === 'tool/result') {
-      mood = 'waiting'
-      holdUntil = 0
+      const result = (event.data ?? {}) as { error?: { code?: string } }
+      if (questionActive) {
+        // 选项框关闭：用户点了选项 → 回 waiting；用户取消/关闭弹窗 → 短暂 stopped
+        questionActive = false
+        if (result.error !== undefined) setTransient('stopped', 1500)
+        else {
+          mood = 'waiting'
+          holdUntil = 0
+        }
+      } else {
+        mood = 'waiting'
+        holdUntil = 0
+      }
     } else if (event.type === 'approval/asked') {
       // 授权等待：用户尚未批准工具调用 → 黄色（authorizing）
       mood = 'authorizing'
@@ -143,6 +166,8 @@ export function apply(ctx: Context): void {
           holdUntil = 0
           break
         case 'tool':
+          // 提问挂起中：选项框未关闭，保持 questioning，不被 tool phase 覆盖
+          if (questionActive) return
           mood = 'jumping'
           holdUntil = 0
           break
@@ -157,6 +182,7 @@ export function apply(ctx: Context): void {
           break
       }
     } else if (event.type === 'turn/end') {
+      questionActive = false
       const payload = (event.data ?? {}) as { reason?: { kind?: string } }
       const kind = payload.reason?.kind
       if (kind === 'error') setTransient('failed', 3000)
