@@ -13,7 +13,23 @@
 > or hidden, from the plugin settings. The Web UI settings card controls
 > visibility, size, and position.
 
-## 状态、内部颜色与操作
+## 状态外观
+
+以下为不同状态下的水球样式：
+
+| 状态 | 黑色眼睛 | 白色眼睛 | 隐藏眼睛 |
+| --- | --- | --- | --- |
+| 空闲 · `idle` | <img src="./docs/assets/waterball-idle-blue-black-eyes.png" width="96" alt="空闲，蓝色水球，黑色眼睛"> | <img src="./docs/assets/waterball-idle-blue-white-eyes.png" width="96" alt="空闲，蓝色水球，白色眼睛"> | <img src="./docs/assets/waterball-idle-blue-no-eyes.png" width="96" alt="空闲，蓝色水球，无眼睛"> |
+| 思考 / 工作 · `waiting` | <img src="./docs/assets/waterball-waiting-green-black-eyes.png" width="96" alt="思考，绿色水球，黑色眼睛"> | <img src="./docs/assets/waterball-waiting-green-white-eyes.png" width="96" alt="思考，绿色水球，白色眼睛"> | <img src="./docs/assets/waterball-waiting-green-no-eyes.png" width="96" alt="思考，绿色水球，无眼睛"> |
+| 工具调用 · `jumping` | <img src="./docs/assets/waterball-jumping-purple-black-eyes.png" width="96" alt="工具调用，紫色水球，黑色眼睛"> | <img src="./docs/assets/waterball-jumping-purple-white-eyes.png" width="96" alt="工具调用，紫色水球，白色眼睛"> | <img src="./docs/assets/waterball-jumping-purple-no-eyes.png" width="96" alt="工具调用，紫色水球，无眼睛"> |
+| 授权等待 · `authorizing` | <img src="./docs/assets/waterball-authorizing-yellow-black-eyes.png" width="96" alt="授权等待，黄色水球，黑色眼睛"> | <img src="./docs/assets/waterball-authorizing-yellow-white-eyes.png" width="96" alt="授权等待，黄色水球，白色眼睛"> | <img src="./docs/assets/waterball-authorizing-yellow-no-eyes.png" width="96" alt="授权等待，黄色水球，无眼睛"> |
+| 做出你的抉择 · `questioning` | <img src="./docs/assets/waterball-questioning-pink-black-eyes.png" width="96" alt="做出你的抉择，粉色水球，黑色眼睛"> | <img src="./docs/assets/waterball-questioning-pink-white-eyes.png" width="96" alt="做出你的抉择，粉色水球，白色眼睛"> | <img src="./docs/assets/waterball-questioning-pink-no-eyes.png" width="96" alt="做出你的抉择，粉色水球，无眼睛"> |
+| 完成 · `done` | <img src="./docs/assets/waterball-done-cyan-black-eyes.png" width="96" alt="完成，青色水球，黑色眼睛"> | <img src="./docs/assets/waterball-done-cyan-white-eyes.png" width="96" alt="完成，青色水球，白色眼睛"> | <img src="./docs/assets/waterball-done-cyan-no-eyes.png" width="96" alt="完成，青色水球，无眼睛"> |
+| 出错 · `failed` | <img src="./docs/assets/waterball-failed-red-black-eyes.png" width="96" alt="出错，红色水球，黑色眼睛"> | <img src="./docs/assets/waterball-failed-red-white-eyes.png" width="96" alt="出错，红色水球，白色眼睛"> | <img src="./docs/assets/waterball-failed-red-no-eyes.png" width="96" alt="出错，红色水球，无眼睛"> |
+| 停止 / 中断 · `stopped` | <img src="./docs/assets/waterball-stopped-charcoal-black-eyes.png" width="96" alt="停止，深灰色水球，黑色眼睛"> | <img src="./docs/assets/waterball-stopped-charcoal-white-eyes.png" width="96" alt="停止，深灰色水球，白色眼睛"> | <img src="./docs/assets/waterball-stopped-charcoal-no-eyes.png" width="96" alt="停止，深灰色水球，无眼睛"> |
+| 点击挥手 · `waving` | <img src="./docs/assets/waterball-waving-orange-black-eyes.png" width="96" alt="点击挥手，橙色水球，黑色眼睛"> | <img src="./docs/assets/waterball-waving-orange-white-eyes.png" width="96" alt="点击挥手，橙色水球，白色眼睛"> | <img src="./docs/assets/waterball-waving-orange-no-eyes.png" width="96" alt="点击挥手，橙色水球，无眼睛"> |
+
+### 状态、内部颜色与操作
 
 水球内部颜色随状态变化，外层白色渐变始终不变。眼睛颜色与显隐可在设置中调整。
 
@@ -32,22 +48,6 @@
 
 标准 DSH 会话事件始终作为状态来源；如果额外安装了活动状态插件，也兼容
 `activity/status` 事件。
-
-### 状态外观
-
-以下为不同状态下的水球样式：
-
-| 状态 | 黑色眼睛 | 白色眼睛 | 隐藏眼睛 |
-| --- | --- | --- | --- |
-| 空闲 · `idle` | <img src="./docs/assets/waterball-idle-blue-black-eyes.png" width="96" alt="空闲，蓝色水球，黑色眼睛"> | <img src="./docs/assets/waterball-idle-blue-white-eyes.png" width="96" alt="空闲，蓝色水球，白色眼睛"> | <img src="./docs/assets/waterball-idle-blue-no-eyes.png" width="96" alt="空闲，蓝色水球，无眼睛"> |
-| 思考 / 工作 · `waiting` | <img src="./docs/assets/waterball-waiting-green-black-eyes.png" width="96" alt="思考，绿色水球，黑色眼睛"> | <img src="./docs/assets/waterball-waiting-green-white-eyes.png" width="96" alt="思考，绿色水球，白色眼睛"> | <img src="./docs/assets/waterball-waiting-green-no-eyes.png" width="96" alt="思考，绿色水球，无眼睛"> |
-| 工具调用 · `jumping` | <img src="./docs/assets/waterball-jumping-purple-black-eyes.png" width="96" alt="工具调用，紫色水球，黑色眼睛"> | <img src="./docs/assets/waterball-jumping-purple-white-eyes.png" width="96" alt="工具调用，紫色水球，白色眼睛"> | <img src="./docs/assets/waterball-jumping-purple-no-eyes.png" width="96" alt="工具调用，紫色水球，无眼睛"> |
-| 授权等待 · `authorizing` | <img src="./docs/assets/waterball-authorizing-yellow-black-eyes.png" width="96" alt="授权等待，黄色水球，黑色眼睛"> | <img src="./docs/assets/waterball-authorizing-yellow-white-eyes.png" width="96" alt="授权等待，黄色水球，白色眼睛"> | <img src="./docs/assets/waterball-authorizing-yellow-no-eyes.png" width="96" alt="授权等待，黄色水球，无眼睛"> |
-| 做出你的抉择 · `questioning` | <img src="./docs/assets/waterball-questioning-pink-black-eyes.png" width="96" alt="做出你的抉择，粉色水球，黑色眼睛"> | <img src="./docs/assets/waterball-questioning-pink-white-eyes.png" width="96" alt="做出你的抉择，粉色水球，白色眼睛"> | <img src="./docs/assets/waterball-questioning-pink-no-eyes.png" width="96" alt="做出你的抉择，粉色水球，无眼睛"> |
-| 完成 · `done` | <img src="./docs/assets/waterball-done-cyan-black-eyes.png" width="96" alt="完成，青色水球，黑色眼睛"> | <img src="./docs/assets/waterball-done-cyan-white-eyes.png" width="96" alt="完成，青色水球，白色眼睛"> | <img src="./docs/assets/waterball-done-cyan-no-eyes.png" width="96" alt="完成，青色水球，无眼睛"> |
-| 出错 · `failed` | <img src="./docs/assets/waterball-failed-red-black-eyes.png" width="96" alt="出错，红色水球，黑色眼睛"> | <img src="./docs/assets/waterball-failed-red-white-eyes.png" width="96" alt="出错，红色水球，白色眼睛"> | <img src="./docs/assets/waterball-failed-red-no-eyes.png" width="96" alt="出错，红色水球，无眼睛"> |
-| 停止 / 中断 · `stopped` | <img src="./docs/assets/waterball-stopped-charcoal-black-eyes.png" width="96" alt="停止，深灰色水球，黑色眼睛"> | <img src="./docs/assets/waterball-stopped-charcoal-white-eyes.png" width="96" alt="停止，深灰色水球，白色眼睛"> | <img src="./docs/assets/waterball-stopped-charcoal-no-eyes.png" width="96" alt="停止，深灰色水球，无眼睛"> |
-| 点击挥手 · `waving` | <img src="./docs/assets/waterball-waving-orange-black-eyes.png" width="96" alt="点击挥手，橙色水球，黑色眼睛"> | <img src="./docs/assets/waterball-waving-orange-white-eyes.png" width="96" alt="点击挥手，橙色水球，白色眼睛"> | <img src="./docs/assets/waterball-waving-orange-no-eyes.png" width="96" alt="点击挥手，橙色水球，无眼睛"> |
 
 ## 安装
 
@@ -98,6 +98,22 @@ dsh plugin --profile web add link:<本仓库绝对路径>
 
 ## English
 
+### State appearance
+
+Water ball styles for each state:
+
+| State | Black eyes | White eyes | Hidden eyes |
+| --- | --- | --- | --- |
+| Idle · `idle` | <img src="./docs/assets/waterball-idle-blue-black-eyes.png" width="96" alt="Idle blue water ball, black eyes"> | <img src="./docs/assets/waterball-idle-blue-white-eyes.png" width="96" alt="Idle blue water ball, white eyes"> | <img src="./docs/assets/waterball-idle-blue-no-eyes.png" width="96" alt="Idle blue water ball, no eyes"> |
+| Thinking / working · `waiting` | <img src="./docs/assets/waterball-waiting-green-black-eyes.png" width="96" alt="Thinking green water ball, black eyes"> | <img src="./docs/assets/waterball-waiting-green-white-eyes.png" width="96" alt="Thinking green water ball, white eyes"> | <img src="./docs/assets/waterball-waiting-green-no-eyes.png" width="96" alt="Thinking green water ball, no eyes"> |
+| Tool call · `jumping` | <img src="./docs/assets/waterball-jumping-purple-black-eyes.png" width="96" alt="Tool call purple water ball, black eyes"> | <img src="./docs/assets/waterball-jumping-purple-white-eyes.png" width="96" alt="Tool call purple water ball, white eyes"> | <img src="./docs/assets/waterball-jumping-purple-no-eyes.png" width="96" alt="Tool call purple water ball, no eyes"> |
+| Awaiting approval · `authorizing` | <img src="./docs/assets/waterball-authorizing-yellow-black-eyes.png" width="96" alt="Awaiting approval yellow water ball, black eyes"> | <img src="./docs/assets/waterball-authorizing-yellow-white-eyes.png" width="96" alt="Awaiting approval yellow water ball, white eyes"> | <img src="./docs/assets/waterball-authorizing-yellow-no-eyes.png" width="96" alt="Awaiting approval yellow water ball, no eyes"> |
+| Awaiting your choice · `questioning` | <img src="./docs/assets/waterball-questioning-pink-black-eyes.png" width="96" alt="Question pink water ball, black eyes"> | <img src="./docs/assets/waterball-questioning-pink-white-eyes.png" width="96" alt="Question pink water ball, white eyes"> | <img src="./docs/assets/waterball-questioning-pink-no-eyes.png" width="96" alt="Question pink water ball, no eyes"> |
+| Completed · `done` | <img src="./docs/assets/waterball-done-cyan-black-eyes.png" width="96" alt="Completed cyan water ball, black eyes"> | <img src="./docs/assets/waterball-done-cyan-white-eyes.png" width="96" alt="Completed cyan water ball, white eyes"> | <img src="./docs/assets/waterball-done-cyan-no-eyes.png" width="96" alt="Completed cyan water ball, no eyes"> |
+| Error · `failed` | <img src="./docs/assets/waterball-failed-red-black-eyes.png" width="96" alt="Error red water ball, black eyes"> | <img src="./docs/assets/waterball-failed-red-white-eyes.png" width="96" alt="Error red water ball, white eyes"> | <img src="./docs/assets/waterball-failed-red-no-eyes.png" width="96" alt="Error red water ball, no eyes"> |
+| Stopped / interrupted · `stopped` | <img src="./docs/assets/waterball-stopped-charcoal-black-eyes.png" width="96" alt="Stopped charcoal water ball, black eyes"> | <img src="./docs/assets/waterball-stopped-charcoal-white-eyes.png" width="96" alt="Stopped charcoal water ball, white eyes"> | <img src="./docs/assets/waterball-stopped-charcoal-no-eyes.png" width="96" alt="Stopped charcoal water ball, no eyes"> |
+| Click reaction · `waving` | <img src="./docs/assets/waterball-waving-orange-black-eyes.png" width="96" alt="Click reaction orange water ball, black eyes"> | <img src="./docs/assets/waterball-waving-orange-white-eyes.png" width="96" alt="Click reaction orange water ball, white eyes"> | <img src="./docs/assets/waterball-waving-orange-no-eyes.png" width="96" alt="Click reaction orange water ball, no eyes"> |
+
 ### State, ball colors, and interactions
 
 The water-ball's inner color follows the current state; the white outer edge of
@@ -118,22 +134,6 @@ the gradient never changes. Eye color and visibility are adjustable in settings.
 
 The plugin always supports standard DSH session events. It also accepts the optional
 `activity/status` events when an activity-tracking plugin is installed.
-
-### State appearance
-
-Water ball styles for each state:
-
-| State | Black eyes | White eyes | Hidden eyes |
-| --- | --- | --- | --- |
-| Idle · `idle` | <img src="./docs/assets/waterball-idle-blue-black-eyes.png" width="96" alt="Idle blue water ball, black eyes"> | <img src="./docs/assets/waterball-idle-blue-white-eyes.png" width="96" alt="Idle blue water ball, white eyes"> | <img src="./docs/assets/waterball-idle-blue-no-eyes.png" width="96" alt="Idle blue water ball, no eyes"> |
-| Thinking / working · `waiting` | <img src="./docs/assets/waterball-waiting-green-black-eyes.png" width="96" alt="Thinking green water ball, black eyes"> | <img src="./docs/assets/waterball-waiting-green-white-eyes.png" width="96" alt="Thinking green water ball, white eyes"> | <img src="./docs/assets/waterball-waiting-green-no-eyes.png" width="96" alt="Thinking green water ball, no eyes"> |
-| Tool call · `jumping` | <img src="./docs/assets/waterball-jumping-purple-black-eyes.png" width="96" alt="Tool call purple water ball, black eyes"> | <img src="./docs/assets/waterball-jumping-purple-white-eyes.png" width="96" alt="Tool call purple water ball, white eyes"> | <img src="./docs/assets/waterball-jumping-purple-no-eyes.png" width="96" alt="Tool call purple water ball, no eyes"> |
-| Awaiting approval · `authorizing` | <img src="./docs/assets/waterball-authorizing-yellow-black-eyes.png" width="96" alt="Awaiting approval yellow water ball, black eyes"> | <img src="./docs/assets/waterball-authorizing-yellow-white-eyes.png" width="96" alt="Awaiting approval yellow water ball, white eyes"> | <img src="./docs/assets/waterball-authorizing-yellow-no-eyes.png" width="96" alt="Awaiting approval yellow water ball, no eyes"> |
-| Awaiting your choice · `questioning` | <img src="./docs/assets/waterball-questioning-pink-black-eyes.png" width="96" alt="Question pink water ball, black eyes"> | <img src="./docs/assets/waterball-questioning-pink-white-eyes.png" width="96" alt="Question pink water ball, white eyes"> | <img src="./docs/assets/waterball-questioning-pink-no-eyes.png" width="96" alt="Question pink water ball, no eyes"> |
-| Completed · `done` | <img src="./docs/assets/waterball-done-cyan-black-eyes.png" width="96" alt="Completed cyan water ball, black eyes"> | <img src="./docs/assets/waterball-done-cyan-white-eyes.png" width="96" alt="Completed cyan water ball, white eyes"> | <img src="./docs/assets/waterball-done-cyan-no-eyes.png" width="96" alt="Completed cyan water ball, no eyes"> |
-| Error · `failed` | <img src="./docs/assets/waterball-failed-red-black-eyes.png" width="96" alt="Error red water ball, black eyes"> | <img src="./docs/assets/waterball-failed-red-white-eyes.png" width="96" alt="Error red water ball, white eyes"> | <img src="./docs/assets/waterball-failed-red-no-eyes.png" width="96" alt="Error red water ball, no eyes"> |
-| Stopped / interrupted · `stopped` | <img src="./docs/assets/waterball-stopped-charcoal-black-eyes.png" width="96" alt="Stopped charcoal water ball, black eyes"> | <img src="./docs/assets/waterball-stopped-charcoal-white-eyes.png" width="96" alt="Stopped charcoal water ball, white eyes"> | <img src="./docs/assets/waterball-stopped-charcoal-no-eyes.png" width="96" alt="Stopped charcoal water ball, no eyes"> |
-| Click reaction · `waving` | <img src="./docs/assets/waterball-waving-orange-black-eyes.png" width="96" alt="Click reaction orange water ball, black eyes"> | <img src="./docs/assets/waterball-waving-orange-white-eyes.png" width="96" alt="Click reaction orange water ball, white eyes"> | <img src="./docs/assets/waterball-waving-orange-no-eyes.png" width="96" alt="Click reaction orange water ball, no eyes"> |
 
 ### Install from GitHub
 
