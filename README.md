@@ -121,9 +121,7 @@ The plugin always supports standard DSH session events. It also accepts the opti
 
 ### State appearance
 
-These images are rendered from the plugin's actual SVG appearance, including the
-drop shadow and ground contact shadow. Each state shows three eye versions:
-black eyes, white eyes, and hidden eyes.
+Water ball styles for each state:
 
 | State | Black eyes | White eyes | Hidden eyes |
 | --- | --- | --- | --- |
