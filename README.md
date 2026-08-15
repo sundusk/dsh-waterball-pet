@@ -131,3 +131,14 @@ dsh plugin --profile web add link:<absolute-path-to-this-repository>
 ```
 
 Run `pnpm build` after changing the source and commit the updated `lib/` artifacts.
+
+## 桌面悬浮球（推荐）
+
+水球不只可以活在网页里。如果你希望它出现在整个电脑桌面上——即使不看 DeepSeek
+Harness 的 Web UI，也能随时知道任务进度——可以试试
+[dsh-macDesktop-pet](https://github.com/sundusk/dsh-macDesktop-pet)：一款 macOS 原生
+悬浮球应用，在桌面上显示一颗置顶的发光小球，颜色随 Agent 状态呼吸变化（思考=绿、
+调工具=紫、完成=青、出错=红），瞄一眼桌面即可掌握运行状态。
+
+> Desktop companion: a native macOS app that shows an always-on-top glowing ball breathing
+> with the Agent's state, so you can track progress at a glance without opening the Web UI.
