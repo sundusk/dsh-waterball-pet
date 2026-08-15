@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="456" height="456" viewBox="0 0 456 456" fill="none">
+  <defs>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="190%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+    <radialGradient id="idle" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#4FB3F7"/>
+      <stop offset="55%" stop-color="#8FD4FF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="waiting" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="55%" stop-color="#A7F3D0"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="jumping" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#A855F7"/>
+      <stop offset="55%" stop-color="#D8B4FE"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="authorizing" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FACC15"/>
+      <stop offset="55%" stop-color="#FDE68A"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="questioning" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#EC4899"/>
+      <stop offset="55%" stop-color="#F9A8D4"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="done" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="55%" stop-color="#A5F3FC"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="failed" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#F87171"/>
+      <stop offset="55%" stop-color="#FCA5A5"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="stopped" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="55%" stop-color="#6B7280"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="waving" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FB923C"/>
+      <stop offset="55%" stop-color="#FDBA74"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </radialGradient>
+    <radialGradient id="contact" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.16"/>
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.04"/>
+      <stop offset="78%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Each tile is the real WaterballSvg geometry: 120px body, r=52, no eyes. -->
+  <g filter="url(#shadow)">
+    <g transform="translate(16 16)"><circle cx="60" cy="60" r="52" fill="url(#idle)"/></g>
+    <g transform="translate(168 16)"><circle cx="60" cy="60" r="52" fill="url(#waiting)"/></g>
+    <g transform="translate(320 16)"><circle cx="60" cy="60" r="52" fill="url(#jumping)"/></g>
+    <g transform="translate(16 168)"><circle cx="60" cy="60" r="52" fill="url(#authorizing)"/></g>
+    <g transform="translate(168 168)"><circle cx="60" cy="60" r="52" fill="url(#questioning)"/></g>
+    <g transform="translate(320 168)"><circle cx="60" cy="60" r="52" fill="url(#done)"/></g>
+    <g transform="translate(16 320)"><circle cx="60" cy="60" r="52" fill="url(#failed)"/></g>
+    <g transform="translate(168 320)"><circle cx="60" cy="60" r="52" fill="url(#stopped)"/></g>
+    <g transform="translate(320 320)"><circle cx="60" cy="60" r="52" fill="url(#waving)"/></g>
+  </g>
+
+  <!-- The plugin's separate static contact shadow, one per tile. -->
+  <ellipse cx="76" cy="136" rx="37.2" ry="7.8" fill="url(#contact)"/>
+  <ellipse cx="228" cy="136" rx="37.2" ry="7.8" fill="url(#contact)"/>
+  <ellipse cx="380" cy="136" rx="37.2" ry="7.8" fill="url(#contact)"/>
+  <ellipse cx="76" cy="288" rx="37.2" ry="7.8" fill="url(#contact)"/>
+  <ellipse cx="228" cy="288" rx="37.2" ry="7.8" fill="url(#contact)"/>
+  <ellipse cx="380" cy="288" rx="37.2" ry="7.8" fill="url(#contact)"/>
+  <ellipse cx="76" cy="440" rx="37.2" ry="7.8" fill="url(#contact)"/>
+  <ellipse cx="228" cy="440" rx="37.2" ry="7.8" fill="url(#contact)"/>
+  <ellipse cx="380" cy="440" rx="37.2" ry="7.8" fill="url(#contact)"/>
+</svg>
