@@ -1,12 +1,12 @@
-# dsh-moodball-web bundle patch: inserts the dual-face plugin row into the web
+# dsh-waterball bundle patch: inserts the dual-face plugin row into the web
 # profile roster. Applied as a profile bundle layer (the `dsh.bundle.patch`
 # manifest field); install with
-# `dsh plugin --profile web add github:sundusk/dsh-moodball-web`.
+# `dsh plugin --profile web add github:sundusk/dsh-waterball-pet`.
 #
 # The row is a bare plugin by package name: the node half (exports ".") tracks
 # agent activity and serves /api/waterball/status, and the `dsh.client`
 # declaration makes the browser half (exports "./client", served at
-# /plugins/moodball-web/client.js) render the floating water ball.
+# /plugins/ui-waterball/client.js) render the floating water ball.
 - insert:
-    - id: moodball-web
-      name: '@linxin666/dsh-moodball-web'
+    - id: ui-waterball
+      name: '@linxin666/dsh-waterball'

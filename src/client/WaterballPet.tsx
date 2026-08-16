@@ -5,7 +5,7 @@
  * shadow. The animation state is driven by a poll of /api/waterball/status.
  * Click to wave; drag to reposition (the final position is persisted back into
  * the `waterball` settings namespace).
- * @module @linxin666/dsh-moodball-web/client/WaterballPet
+ * @module @linxin666/dsh-waterball/client/WaterballPet
  */
 
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactElement, type ReactPortal } from 'react'
