@@ -1,9 +1,9 @@
 /**
- * dsh-waterball host half — tracks agent activity and serves the current mood
+ * dsh-moodball-web host half — tracks agent activity and serves the current mood
  * over a same-origin JSON route, plus registers the `waterball` settings
  * namespace (`enabled` master switch + `size`). Install via
- * `dsh plugin --profile web add link:<repo>/packages/dsh-waterball`.
- * @module @linxin666/dsh-waterball
+ * `dsh plugin --profile web add link:<repo>/packages/dsh-moodball-web`.
+ * @module @linxin666/dsh-moodball-web
  */
 
 import { Context } from '@deepseek-ai/cordis'
@@ -15,7 +15,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http'
 import z from 'schemastery'
 
 /** Stable cordis plugin name (matches cordis.patch.yml insert id). */
-export const name = 'waterball'
+export const name = 'moodball-web'
 
 /** Services required before the water ball can mount its surfaces. */
 export const inject = ['webServer']
@@ -217,7 +217,7 @@ export function apply(ctx: Context): void {
   let disposeRoute: (() => void) | undefined
   const syncRoutes = (): void => {
     if (disposeRoute === undefined && section().enabled) {
-      disposeRoute = ctx.effect(() => ctx.webServer.register(statusRoute), 'waterball: status route')
+      disposeRoute = ctx.effect(() => ctx.webServer.register(statusRoute), 'moodball-web: status route')
     } else if (disposeRoute !== undefined && !section().enabled) {
       disposeRoute()
       disposeRoute = undefined

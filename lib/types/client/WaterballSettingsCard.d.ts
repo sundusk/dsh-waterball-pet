@@ -60,7 +60,7 @@ export declare class WaterballSettingsCardController {
     inject(): WaterballSettingsCardFace;
 }
 /** Props the renderer binds for the water ball settings card. */
-export type WaterballSettingsCardProps = PropsRuntime<'settings.plugin.item'> & PropsLocale<'waterball'> & InjectFace<WaterballSettingsCardFace>;
+export type WaterballSettingsCardProps = PropsRuntime<'settings.plugin.item'> & PropsLocale<'moodball-web'> & InjectFace<WaterballSettingsCardFace>;
 /**
  * Render the water ball settings card.
  * @param props - locale copy, the card snapshot, and its form actions.

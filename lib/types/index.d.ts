@@ -1,14 +1,14 @@
 /**
- * dsh-waterball host half — tracks agent activity and serves the current mood
+ * dsh-moodball-web host half — tracks agent activity and serves the current mood
  * over a same-origin JSON route, plus registers the `waterball` settings
  * namespace (`enabled` master switch + `size`). Install via
- * `dsh plugin --profile web add link:<repo>/packages/dsh-waterball`.
- * @module @linxin666/dsh-waterball
+ * `dsh plugin --profile web add link:<repo>/packages/dsh-moodball-web`.
+ * @module @linxin666/dsh-moodball-web
  */
 import { Context } from '@deepseek-ai/cordis';
 import z from 'schemastery';
 /** Stable cordis plugin name (matches cordis.patch.yml insert id). */
-export declare const name = "waterball";
+export declare const name = "moodball-web";
 /** Services required before the water ball can mount its surfaces. */
 export declare const inject: string[];
 /** Settings namespace of the water ball capability (the browser half spells the same value). */

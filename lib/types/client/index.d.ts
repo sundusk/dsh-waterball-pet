@@ -1,11 +1,11 @@
 /**
- * dsh-waterball browser half — renders the floating water ball and drives it
+ * dsh-moodball-web browser half — renders the floating water ball and drives it
  * from the host's same-origin `GET /api/waterball/status` endpoint, gated by
  * the `waterball` settings namespace `enabled` master switch. It also seats a
  * plugin configuration card directly in the settings plugin section, on the
  * same level as the built-in Shell / Agent loop / Web search cards and the
  * "Web UI 插件" family group.
- * @module @linxin666/dsh-waterball/client
+ * @module @linxin666/dsh-moodball-web/client
  */
 import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client';
 /** Required services. */

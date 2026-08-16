@@ -1,17 +1,17 @@
 {
-  "name": "@linxin666/dsh-waterball",
-  "description": "Water ball pet plugin for the dsh web GUI: a floating sky-blue water ball with white eyes that reacts to agent activity (idle / thinking / tool) and ships an enable toggle plus size in the settings plugin section.",
-  "version": "0.1.1",
+  "name": "@linxin666/dsh-moodball-web",
+  "description": "MoodBall web plugin for the dsh web GUI: a floating mood ball with white eyes that reacts to agent activity (idle / thinking / tool) and ships an enable toggle plus size in the settings plugin section. The web sibling of the MoodBall macOS desktop app.",
+  "version": "0.2.0",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sundusk/dsh-waterball-pet.git"
+    "url": "https://github.com/sundusk/dsh-moodball-web.git"
   },
-  "homepage": "https://github.com/sundusk/dsh-waterball-pet#readme",
+  "homepage": "https://github.com/sundusk/dsh-moodball-web#readme",
   "bugs": {
-    "url": "https://github.com/sundusk/dsh-waterball-pet/issues"
+    "url": "https://github.com/sundusk/dsh-moodball-web/issues"
   },
-  "keywords": ["dsh-plugin", "deepseek-harness", "deepseek", "web-ui", "waterball", "pet"],
+  "keywords": ["dsh-plugin", "deepseek-harness", "deepseek", "web-ui", "moodball", "pet"],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "exports": {

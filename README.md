@@ -1,11 +1,11 @@
-# dsh-waterball-pet
+# dsh-moodball-web
 
-一个适用于 DeepSeek Harness Web UI 的漂浮水球宠物插件。水球使用纯 SVG 绘制，
+一个适用于 DeepSeek Harness Web UI 的漂浮心情球插件（网页版）。心情球使用纯 SVG 绘制，
 内部颜色会随 Agent 的会话状态变化（外层白色渐变保持不变），球体带柔和投影与
 底部接触阴影，便于在浅色页面上看清边界。眼睛可在设置中切换白色/黑色或隐藏。
 支持在 Web UI 中开关、调整大小和拖动位置。
 
-> This is a floating water-ball pet plugin for the DeepSeek Harness Web UI. It is
+> This is the web MoodBall plugin for the DeepSeek Harness Web UI. It is
 > drawn with SVG and reacts to Agent session events: the ball's inner color
 > changes with the state while the white outer edge of the gradient stays
 > constant. A soft drop shadow and a static ground contact shadow keep the ball
@@ -15,23 +15,23 @@
 
 ## 状态外观
 
-以下为不同状态下的水球样式：
+以下为不同状态下的心情球样式：
 
 | 状态 | 黑色眼睛 | 白色眼睛 | 隐藏眼睛 |
 | --- | --- | --- | --- |
-| 空闲 · `idle` | <img src="./docs/assets/waterball-idle-blue-black-eyes.png" width="96" alt="空闲，蓝色水球，黑色眼睛"> | <img src="./docs/assets/waterball-idle-blue-white-eyes.png" width="96" alt="空闲，蓝色水球，白色眼睛"> | <img src="./docs/assets/waterball-idle-blue-no-eyes.png" width="96" alt="空闲，蓝色水球，无眼睛"> |
-| 思考 / 工作 · `waiting` | <img src="./docs/assets/waterball-waiting-green-black-eyes.png" width="96" alt="思考，绿色水球，黑色眼睛"> | <img src="./docs/assets/waterball-waiting-green-white-eyes.png" width="96" alt="思考，绿色水球，白色眼睛"> | <img src="./docs/assets/waterball-waiting-green-no-eyes.png" width="96" alt="思考，绿色水球，无眼睛"> |
-| 工具调用 · `jumping` | <img src="./docs/assets/waterball-jumping-purple-black-eyes.png" width="96" alt="工具调用，紫色水球，黑色眼睛"> | <img src="./docs/assets/waterball-jumping-purple-white-eyes.png" width="96" alt="工具调用，紫色水球，白色眼睛"> | <img src="./docs/assets/waterball-jumping-purple-no-eyes.png" width="96" alt="工具调用，紫色水球，无眼睛"> |
-| 授权等待 · `authorizing` | <img src="./docs/assets/waterball-authorizing-yellow-black-eyes.png" width="96" alt="授权等待，黄色水球，黑色眼睛"> | <img src="./docs/assets/waterball-authorizing-yellow-white-eyes.png" width="96" alt="授权等待，黄色水球，白色眼睛"> | <img src="./docs/assets/waterball-authorizing-yellow-no-eyes.png" width="96" alt="授权等待，黄色水球，无眼睛"> |
-| 做出你的抉择 · `questioning` | <img src="./docs/assets/waterball-questioning-pink-black-eyes.png" width="96" alt="做出你的抉择，粉色水球，黑色眼睛"> | <img src="./docs/assets/waterball-questioning-pink-white-eyes.png" width="96" alt="做出你的抉择，粉色水球，白色眼睛"> | <img src="./docs/assets/waterball-questioning-pink-no-eyes.png" width="96" alt="做出你的抉择，粉色水球，无眼睛"> |
-| 完成 · `done` | <img src="./docs/assets/waterball-done-cyan-black-eyes.png" width="96" alt="完成，青色水球，黑色眼睛"> | <img src="./docs/assets/waterball-done-cyan-white-eyes.png" width="96" alt="完成，青色水球，白色眼睛"> | <img src="./docs/assets/waterball-done-cyan-no-eyes.png" width="96" alt="完成，青色水球，无眼睛"> |
-| 出错 · `failed` | <img src="./docs/assets/waterball-failed-red-black-eyes.png" width="96" alt="出错，红色水球，黑色眼睛"> | <img src="./docs/assets/waterball-failed-red-white-eyes.png" width="96" alt="出错，红色水球，白色眼睛"> | <img src="./docs/assets/waterball-failed-red-no-eyes.png" width="96" alt="出错，红色水球，无眼睛"> |
-| 停止 / 中断 · `stopped` | <img src="./docs/assets/waterball-stopped-charcoal-black-eyes.png" width="96" alt="停止，深灰色水球，黑色眼睛"> | <img src="./docs/assets/waterball-stopped-charcoal-white-eyes.png" width="96" alt="停止，深灰色水球，白色眼睛"> | <img src="./docs/assets/waterball-stopped-charcoal-no-eyes.png" width="96" alt="停止，深灰色水球，无眼睛"> |
-| 点击挥手 · `waving` | <img src="./docs/assets/waterball-waving-orange-black-eyes.png" width="96" alt="点击挥手，橙色水球，黑色眼睛"> | <img src="./docs/assets/waterball-waving-orange-white-eyes.png" width="96" alt="点击挥手，橙色水球，白色眼睛"> | <img src="./docs/assets/waterball-waving-orange-no-eyes.png" width="96" alt="点击挥手，橙色水球，无眼睛"> |
+| 空闲 · `idle` | <img src="./docs/assets/waterball-idle-blue-black-eyes.png" width="96" alt="空闲，蓝色心情球，黑色眼睛"> | <img src="./docs/assets/waterball-idle-blue-white-eyes.png" width="96" alt="空闲，蓝色心情球，白色眼睛"> | <img src="./docs/assets/waterball-idle-blue-no-eyes.png" width="96" alt="空闲，蓝色心情球，无眼睛"> |
+| 思考 / 工作 · `waiting` | <img src="./docs/assets/waterball-waiting-green-black-eyes.png" width="96" alt="思考，绿色心情球，黑色眼睛"> | <img src="./docs/assets/waterball-waiting-green-white-eyes.png" width="96" alt="思考，绿色心情球，白色眼睛"> | <img src="./docs/assets/waterball-waiting-green-no-eyes.png" width="96" alt="思考，绿色心情球，无眼睛"> |
+| 工具调用 · `jumping` | <img src="./docs/assets/waterball-jumping-purple-black-eyes.png" width="96" alt="工具调用，紫色心情球，黑色眼睛"> | <img src="./docs/assets/waterball-jumping-purple-white-eyes.png" width="96" alt="工具调用，紫色心情球，白色眼睛"> | <img src="./docs/assets/waterball-jumping-purple-no-eyes.png" width="96" alt="工具调用，紫色心情球，无眼睛"> |
+| 授权等待 · `authorizing` | <img src="./docs/assets/waterball-authorizing-yellow-black-eyes.png" width="96" alt="授权等待，黄色心情球，黑色眼睛"> | <img src="./docs/assets/waterball-authorizing-yellow-white-eyes.png" width="96" alt="授权等待，黄色心情球，白色眼睛"> | <img src="./docs/assets/waterball-authorizing-yellow-no-eyes.png" width="96" alt="授权等待，黄色心情球，无眼睛"> |
+| 做出你的抉择 · `questioning` | <img src="./docs/assets/waterball-questioning-pink-black-eyes.png" width="96" alt="做出你的抉择，粉色心情球，黑色眼睛"> | <img src="./docs/assets/waterball-questioning-pink-white-eyes.png" width="96" alt="做出你的抉择，粉色心情球，白色眼睛"> | <img src="./docs/assets/waterball-questioning-pink-no-eyes.png" width="96" alt="做出你的抉择，粉色心情球，无眼睛"> |
+| 完成 · `done` | <img src="./docs/assets/waterball-done-cyan-black-eyes.png" width="96" alt="完成，青色心情球，黑色眼睛"> | <img src="./docs/assets/waterball-done-cyan-white-eyes.png" width="96" alt="完成，青色心情球，白色眼睛"> | <img src="./docs/assets/waterball-done-cyan-no-eyes.png" width="96" alt="完成，青色心情球，无眼睛"> |
+| 出错 · `failed` | <img src="./docs/assets/waterball-failed-red-black-eyes.png" width="96" alt="出错，红色心情球，黑色眼睛"> | <img src="./docs/assets/waterball-failed-red-white-eyes.png" width="96" alt="出错，红色心情球，白色眼睛"> | <img src="./docs/assets/waterball-failed-red-no-eyes.png" width="96" alt="出错，红色心情球，无眼睛"> |
+| 停止 / 中断 · `stopped` | <img src="./docs/assets/waterball-stopped-charcoal-black-eyes.png" width="96" alt="停止，深灰色心情球，黑色眼睛"> | <img src="./docs/assets/waterball-stopped-charcoal-white-eyes.png" width="96" alt="停止，深灰色心情球，白色眼睛"> | <img src="./docs/assets/waterball-stopped-charcoal-no-eyes.png" width="96" alt="停止，深灰色心情球，无眼睛"> |
+| 点击挥手 · `waving` | <img src="./docs/assets/waterball-waving-orange-black-eyes.png" width="96" alt="点击挥手，橙色心情球，黑色眼睛"> | <img src="./docs/assets/waterball-waving-orange-white-eyes.png" width="96" alt="点击挥手，橙色心情球，白色眼睛"> | <img src="./docs/assets/waterball-waving-orange-no-eyes.png" width="96" alt="点击挥手，橙色心情球，无眼睛"> |
 
 ### 状态、内部颜色与操作
 
-水球内部颜色随状态变化，外层白色渐变始终不变。眼睛颜色与显隐可在设置中调整。
+心情球内部颜色随状态变化，外层白色渐变始终不变。眼睛颜色与显隐可在设置中调整。
 
 | 状态 | `mood` | 内部颜色 | 触发事件 / 操作 | 动画与持续时间 |
 | --- | --- | --- | --- | --- |
@@ -44,7 +44,7 @@
 | 完成 | `done` | 青色 `#22d3ee` | `activity/status` 的 `done`；或 `turn/end` 的 `reason=completed` | 欢快跳动约 2.5 秒 |
 | 出错 | `failed` | 红色 `#f87171` | `turn/end` 的 `reason=error` | 低头沮丧约 3 秒 |
 | 中断 / 停止 | `stopped` | 深灰 `#111827` | `turn/end` 的 `reason=aborted`、`blocked`、`max-tokens` 或其他停止原因 | 静止下沉约 3 秒 |
-| 点击挥手 | `waving` | 橙色 `#fb923c` | 单击水球 | 左右摇摆约 1.6 秒 |
+| 点击挥手 | `waving` | 橙色 `#fb923c` | 单击心情球 | 左右摇摆约 1.6 秒 |
 
 标准 DSH 会话事件始终作为状态来源；如果额外安装了活动状态插件，也兼容
 `activity/status` 事件。
@@ -56,12 +56,12 @@
 需要已安装 Node.js、pnpm 和 DeepSeek Harness：
 
 ```sh
-dsh plugin --profile web add github:sundusk/dsh-waterball-pet
+dsh plugin --profile web add github:sundusk/dsh-moodball-web
 ```
 
 仓库已包含构建后的 host/browser 两个插件部分，安装时不需要执行第三方构建脚本，
 可以直接使用。安装完成后重启 `dsh web`，然后打开 Web UI，在「设置 → 插件」的
-插件配置列表中启用「水球宠物」（卡片与内置的 Shell / Agent loop / Web search
+插件配置列表中启用「心情球（网页版）」（卡片与内置的 Shell / Agent loop / Web search
 卡片平级，位于「Web UI 插件」分组之外）。
 
 > **兼容性注意：白名单问题**
@@ -72,7 +72,7 @@ dsh plugin --profile web add github:sundusk/dsh-waterball-pet
 >
 > - 插件已经安装，但设置卡片显示不可用或只读；
 > - 启用、大小、位置等设置无法保存；
-> - 某些宿主版本中水球覆盖层也可能不会显示。
+> - 某些宿主版本中心情球覆盖层也可能不会显示。
 >
 > 遇到这些情况，请先升级 DeepSeek Harness 到包含 `waterball` 白名单的版本，重启
 > `dsh web` 后再检查。修改本机 npx 缓存中的宿主文件只能作为临时开发排查手段，
@@ -92,8 +92,8 @@ dsh plugin --profile web add link:<本仓库绝对路径>
 
 - `src/index.ts` — host 半区：监听标准 session 事件与可选的 `activity/status` 相位，
   提供 `GET /api/waterball/status`，注册 `waterball` 设置命名空间。
-- `src/client/index.ts` — browser 半区：渲染水球、轮询状态、注册插件配置卡片。
-- `cordis.patch.yml` — bundle patch 插件行，插件 ID 为 `ui-waterball`。
+- `src/client/index.ts` — browser 半区：渲染心情球、轮询状态、注册插件配置卡片。
+- `cordis.patch.yml` — bundle patch 插件行，插件 ID 为 `moodball-web`。
 - `shared/` — 独立仓库使用的客户端构建预设。
 - `lib/` — 已提交的 host/browser 构建产物，保证 GitHub 安装无需执行构建脚本。
 
@@ -141,7 +141,7 @@ The plugin always supports standard DSH session events. It also accepts the opti
 Requirements: Node.js, pnpm, and DeepSeek Harness.
 
 ```sh
-dsh plugin --profile web add github:sundusk/dsh-waterball-pet
+dsh plugin --profile web add github:sundusk/dsh-moodball-web
 ```
 
 The repository includes the prebuilt host and browser artifacts, so installation does
@@ -173,7 +173,7 @@ Run `pnpm build` after changing the source and commit the updated `lib/` artifac
 
 ## 桌面悬浮球（推荐）
 
-水球不只可以活在网页里。如果你希望它出现在整个电脑桌面上——即使不看 DeepSeek
+心情球不只可以活在网页里。如果你希望它出现在整个电脑桌面上——即使不看 DeepSeek
 Harness 的 Web UI，也能随时知道任务进度——可以试试
 [dsh-macDesktop-pet](https://github.com/sundusk/dsh-macDesktop-pet)：一款 macOS 原生
 悬浮球应用，在桌面上显示一颗置顶的发光小球，颜色随 Agent 状态呼吸变化（思考=绿、

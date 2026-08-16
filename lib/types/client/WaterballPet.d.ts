@@ -5,7 +5,7 @@
  * shadow. The animation state is driven by a poll of /api/waterball/status.
  * Click to wave; drag to reposition (the final position is persisted back into
  * the `waterball` settings namespace).
- * @module @linxin666/dsh-waterball/client/WaterballPet
+ * @module @linxin666/dsh-moodball-web/client/WaterballPet
  */
 import { type ReactPortal } from 'react';
 import type { InjectFace, PropsLocale } from '@deepseek-ai/dsh-client-ui-slots';

@@ -96,7 +96,7 @@ export class WaterballSettingsCardController {
 /** Props the renderer binds for the water ball settings card. */
 export type WaterballSettingsCardProps =
   PropsRuntime<'settings.plugin.item'>
-  & PropsLocale<'waterball'>
+  & PropsLocale<'moodball-web'>
   & InjectFace<WaterballSettingsCardFace>
 
 /**

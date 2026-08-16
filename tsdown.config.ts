@@ -1,5 +1,5 @@
 /**
- * Standalone tsdown config for the dsh-waterball plugin.
+ * Standalone tsdown config for the dsh-moodball-web plugin.
  *
  * Uses the standalone shared client-bundle preset (shared/tsdown.client.ts):
  * the node half builds from src/index.ts (ESM, cordis + dsh-settings external),
@@ -8,6 +8,6 @@
  */
 import { clientBundle } from './shared/tsdown.client.ts'
 
-export default clientBundle('@linxin666/dsh-waterball', ['src/index.ts'], {
+export default clientBundle('@linxin666/dsh-moodball-web', ['src/index.ts'], {
   libExternal: ['@deepseek-ai/dsh-settings'],
 })
