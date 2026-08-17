@@ -20,8 +20,8 @@ export interface WaterballDockFace {
 /** Composed props of the dock entry (runtime + locale + injected). */
 export type WaterballDockEntryProps = PropsLocale<typeof NS> & InjectFace<WaterballDockFace>;
 /**
- * Dock anchor inside `conversation.input.selector.context`: the selector row
- * mounts in every conversation phase, so the floating pet stays on screen on
- * the new-conversation screen too. The pet portals itself onto document.body.
+ * Dock anchor inside `shell.overlay`: the frame-wide overlay is rendered on
+ * both the new-conversation and active-session pages, so the floating pet
+ * stays on screen everywhere. The pet portals itself onto document.body.
  */
 export declare function WaterballDockEntry(props: WaterballDockEntryProps): ReactPortal;

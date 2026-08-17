@@ -28,14 +28,18 @@ export const inject = ['slots', 'locale', 'connection', 'settingsScope', 'remote
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface SlotMap {
     /**
-     * One plugin's configuration card inside the settings plugin section.
+     * One plugin's configuration card inside the settings plugin section,
+     * keyed by the settings namespace the card edits.
      * Type-only local copy of the slot the official SDK
      * (`dsh-client-ui-settings-plugins`) declares at runtime; kept here so
-     * this plugin's typecheck stays self-contained. Registering here puts the
-     * card on the same level as the built-in Shell / Agent loop / Web search
-     * cards and the "Web UI 插件" family group.
+     * this plugin's typecheck stays self-contained. The rc.7 slot is
+     * `keyed` — the tab dispatches `settings.plugin.item` with
+     * `entryKey: <namespace>` for every namespace the Host serves, so the
+     * card registers under the `waterball` namespace key. Registering here
+     * puts the card on the same level as the built-in Shell / Agent loop /
+     * Web search cards and the "Web UI 插件" family group.
      */
-    'settings.plugin.item': { kind: 'list'; scope: 'root'; owner: SettingsPluginItemOwnerProps }
+    'settings.plugin.item': { kind: 'keyed'; scope: 'root'; owner: SettingsPluginItemOwnerProps }
     /** Frame-wide overlay that is rendered on both the new-session and active-session pages. */
     'shell.overlay': { kind: 'list'; scope: 'root'; owner: ShellOverlayOwnerProps }
   }
@@ -84,12 +88,13 @@ export function apply(ctx: ClientContext): void {
   // Plugin configuration card: one staged form over the `waterball` settings
   // namespace, contributed to the settings plugin section at the top level
   // (a sibling of the built-in Shell / Agent loop / Web search cards and the
-  // "Web UI 插件" family group card).
+  // "Web UI 插件" family group card). rc.7 keys the card by the settings
+  // namespace it edits — the same string the host registers — so the tab
+  // dispatches it whenever the `waterball` namespace is served.
   const card = new WaterballSettingsCardController(settingsScope)
   ctx.slots.inject('settings.plugin.item', () => ctx.slots.register({
     name: 'settings.plugin.item',
-    id: 'waterball-settings',
-    order: 150,
+    key: WATERBALL_SETTINGS_NS,
     locale: NS,
     inject: () => card.inject(),
   }, WaterballSettingsCard))

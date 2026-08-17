@@ -13,15 +13,19 @@ export declare const inject: string[];
 declare module '@deepseek-ai/dsh-client-ui-slots' {
     interface SlotMap {
         /**
-         * One plugin's configuration card inside the settings plugin section.
+         * One plugin's configuration card inside the settings plugin section,
+         * keyed by the settings namespace the card edits.
          * Type-only local copy of the slot the official SDK
          * (`dsh-client-ui-settings-plugins`) declares at runtime; kept here so
-         * this plugin's typecheck stays self-contained. Registering here puts the
-         * card on the same level as the built-in Shell / Agent loop / Web search
-         * cards and the "Web UI 插件" family group.
+         * this plugin's typecheck stays self-contained. The rc.7 slot is
+         * `keyed` — the tab dispatches `settings.plugin.item` with
+         * `entryKey: <namespace>` for every namespace the Host serves, so the
+         * card registers under the `waterball` namespace key. Registering here
+         * puts the card on the same level as the built-in Shell / Agent loop /
+         * Web search cards and the "Web UI 插件" family group.
          */
         'settings.plugin.item': {
-            kind: 'list';
+            kind: 'keyed';
             scope: 'root';
             owner: SettingsPluginItemOwnerProps;
         };
